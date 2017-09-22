@@ -19,4 +19,8 @@ public abstract class Herbivore extends Animal {
     public void eat(Vegetation food){
         belly.add(food);
     }
+
+    public void sleep() {
+        belly.clear();
+    }
 }

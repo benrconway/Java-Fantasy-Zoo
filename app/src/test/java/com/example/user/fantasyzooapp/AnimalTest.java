@@ -1,14 +1,19 @@
 package com.example.user.fantasyzooapp;
 
+import com.example.user.fantasyzooapp.animals.Bunyip;
 import com.example.user.fantasyzooapp.animals.Carnivore;
+import com.example.user.fantasyzooapp.animals.Dragon;
 import com.example.user.fantasyzooapp.animals.Herbivore;
 import com.example.user.fantasyzooapp.animals.Omnivore;
 import com.example.user.fantasyzooapp.animals.Size;
+import com.example.user.fantasyzooapp.animals.Unicorn;
 import com.example.user.fantasyzooapp.food.Cabbage;
 import com.example.user.fantasyzooapp.food.Meat;
 
 import org.junit.Before;
 import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
 
 /**
  * Created by user on 22/09/2017.
@@ -16,22 +21,33 @@ import org.junit.Test;
 
 public class AnimalTest {
 
-
+    Bunyip bunyip;
+    Unicorn unicorn;
+    Dragon dragon;
     Cabbage cabbage;
     Meat meat;
 
     @Before
     public void before(){
-        omnivore = new Omnivore("George", Size.HUGE, 5000);
-        carnivore = new Carnivore("Pamela", Size.MEDIUM, 2000);
-        herbivore = new Herbivore("Salazah", Size.SMALL, 500);
+        bunyip = new Bunyip("George", Size.MEDIUM, 5000);
+        dragon = new Dragon("Pamela", Size.HUGE, 2000);
+        unicorn = new Unicorn("Salazah", Size.SMALL, 500);
         meat = new Meat();
         cabbage = new Cabbage();
     }
 
     @Test
     public void canGetAnimalDetails(){
-        omnivore
+        assertEquals("George", bunyip.getName());
+        assertEquals(Size.MEDIUM, bunyip.getSize());
+        assertEquals(5000, bunyip.getValue());
+        assertEquals("Pamela", dragon.getName());
+        assertEquals(Size.HUGE, dragon.getSize());
+        assertEquals(2000, dragon.getValue());
+        assertEquals("Salazah", unicorn.getName());
+        assertEquals(Size.SMALL, unicorn.getSize());
+        assertEquals(500, unicorn.getValue());
     }
+
 
 }

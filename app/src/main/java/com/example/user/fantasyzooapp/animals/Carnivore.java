@@ -15,4 +15,12 @@ public abstract class Carnivore extends Animal {
         super(name, size, value);
         belly = new ArrayList<>();
     }
+
+    public void eat(Flesh food){
+        belly.add(food);
+    }
+
+    public void sleep(){
+        belly.clear();
+    }
 }

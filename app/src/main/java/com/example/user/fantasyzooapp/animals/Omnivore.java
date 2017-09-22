@@ -20,4 +20,8 @@ public abstract class Omnivore extends Animal {
         belly.add(food);
     }
 
+    public void sleep() {
+        belly.clear();
+    }
+
 }
