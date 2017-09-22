@@ -16,6 +16,10 @@ public abstract class Carnivore extends Animal {
         belly = new ArrayList<>();
     }
 
+    public ArrayList<Flesh> getBelly() {
+        return belly;
+    }
+
     public void eat(Flesh food){
         belly.add(food);
     }

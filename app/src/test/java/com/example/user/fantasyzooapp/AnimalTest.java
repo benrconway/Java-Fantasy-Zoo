@@ -49,5 +49,28 @@ public class AnimalTest {
         assertEquals(500, unicorn.getValue());
     }
 
+    @Test
+    public void carnivoreCanEatMeat(){
+        dragon.eat(meat);
+        assertEquals(1, dragon.getBelly().size());
+    }
 
+    @Test
+    public void herbivoreCanEatVegetation(){
+        unicorn.eat(cabbage);
+        assertEquals(1, unicorn.getBelly().size());
+    }
+
+    @Test
+    public void omnivoreCanEatAnythingEdible(){
+        bunyip.eat(meat);
+        bunyip.eat(cabbage);
+        assertEquals(2, bunyip.getBelly().size());
+    }
+
+    @Test
+    public void dragonCanFly(){
+        String result = dragon.fly();
+        assertEquals("The dragon takes a deep breath and launches into the air", result);
+    }
 }

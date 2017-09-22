@@ -14,4 +14,5 @@ public class Dragon extends Carnivore implements Flying{
     public String fly(){
         return "The dragon takes a deep breath and launches into the air";
     }
+
 }

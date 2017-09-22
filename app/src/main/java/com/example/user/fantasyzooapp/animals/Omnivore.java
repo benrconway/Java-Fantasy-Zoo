@@ -16,6 +16,10 @@ public abstract class Omnivore extends Animal {
         this.belly = new ArrayList<>();
     }
 
+    public ArrayList<Edible> getBelly() {
+        return belly;
+    }
+
     public void eat(Edible food){
         belly.add(food);
     }

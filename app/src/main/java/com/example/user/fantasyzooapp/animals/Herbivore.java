@@ -16,6 +16,10 @@ public abstract class Herbivore extends Animal {
         this.belly = new ArrayList<>();
     }
 
+    public ArrayList<Vegetation> getBelly() {
+        return belly;
+    }
+
     public void eat(Vegetation food){
         belly.add(food);
     }
