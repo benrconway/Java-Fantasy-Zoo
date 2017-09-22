@@ -5,6 +5,7 @@ package com.example.user.fantasyzooapp.animals;
  */
 
 public class Unicorn extends Herbivore {
+
     public Unicorn(String name, Enum<Size> size, int value){
         super(name, size, value);
     }
