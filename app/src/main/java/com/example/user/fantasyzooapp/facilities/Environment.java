@@ -1,9 +1,7 @@
 package com.example.user.fantasyzooapp.facilities;
 
 import com.example.user.fantasyzooapp.animals.Animal;
-import com.example.user.fantasyzooapp.animals.Bunyip;
 import com.example.user.fantasyzooapp.animals.Size;
-import com.example.user.fantasyzooapp.people.*;
 
 import java.util.ArrayList;
 

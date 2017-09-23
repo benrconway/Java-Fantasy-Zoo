@@ -101,8 +101,15 @@ public class EnvironmentTest {
         environment1.goToStation(staff1);
         environment1.leaveStation(staff1);
         assertEquals(0, environment1.getWorkers().size());
-
     }
 
+    @Test
+    public void staffCanEvacuateBuilding() {
+        environment1.enterBuilding(customer1);
+        environment1.enterBuilding(customer2);
+        environment1.enterBuilding(staff1);
+        Staff.evacuate(environment1);
+        assertEquals(1, environment1.getFloorSpace().size());
+    }
 
 }
