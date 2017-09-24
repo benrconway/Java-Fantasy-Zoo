@@ -61,14 +61,14 @@ public class Environment extends Building {
 
     public boolean areAnimalsCompatibile(ArrayList<Animal> animalsToBeChecked){
         boolean areCompatible = false;
-        ArrayList<Animal> herbivores = new ArrayList<>();
         ArrayList<Animal> carnivores = new ArrayList<>();
+        ArrayList<Animal> others = new ArrayList<>();
         for (Animal animal: animalsToBeChecked){
             if (animal instanceof Carnivore){
                 carnivores.add(animal);
-            }else{ herbivores.add(animal);}
+            }else{ others.add(animal);}
         }
-        if((herbivores.size() == 0) || (carnivores.size() == 0)){
+        if((others.size() == 0) || (carnivores.size() == 0)){
             areCompatible = true;
         }
         return areCompatible;

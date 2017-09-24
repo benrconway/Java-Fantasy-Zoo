@@ -18,9 +18,9 @@ import static org.junit.Assert.assertEquals;
  */
 
 public class EnvironmentTest {
-    Environment environment1;
-    Environment environment2;
-    Environment environment3;
+    Environment largeEnvironment;
+    Environment mediumEnvironment;
+    Environment smallEnvironment;
 //    Environment environment4;
     Staff staff1;
     Staff staff2;
@@ -43,110 +43,120 @@ public class EnvironmentTest {
         mediumUnicorn = new Unicorn("Thunder", Size.MEDIUM, 700);
         largeUnicorn = new Unicorn("Bog", Size.LARGE, 600);
         mediumBunyip = new Bunyip("Terry", Size.MEDIUM, 1000);
-        environment1 = new Environment(100, 20, 5, Size.LARGE);
-        environment2 = new Environment(100, 20, 5, Size.MEDIUM);
-        environment3 = new Environment(100, 20, 5, Size.SMALL);
+        largeEnvironment = new Environment(100, 20, 5, Size.LARGE);
+        mediumEnvironment = new Environment(100, 20, 5, Size.MEDIUM);
+        smallEnvironment = new Environment(100, 20, 5, Size.SMALL);
     }
 
     @Test
     public void canGetDetails(){
-        assertEquals(100, environment1.getValue());
-        assertEquals(20, environment1.getViewingCapacity());
-        assertEquals(5, environment1.getStaffCapacity());
-        assertEquals(Size.LARGE, environment1.getSize());
-        assertEquals(0, environment1.getAnimals().size());
-        assertEquals(0, environment1.getFloorSpace().size());
-        assertEquals(0, environment1.getWorkers().size());
+        assertEquals(100, largeEnvironment.getValue());
+        assertEquals(20, largeEnvironment.getViewingCapacity());
+        assertEquals(5, largeEnvironment.getStaffCapacity());
+        assertEquals(Size.LARGE, largeEnvironment.getSize());
+        assertEquals(0, largeEnvironment.getAnimals().size());
+        assertEquals(0, largeEnvironment.getFloorSpace().size());
+        assertEquals(0, largeEnvironment.getWorkers().size());
     }
 
     @Test
     public void canTakeInAnimal() {
-        environment1.takeIn(mediumBunyip);
-        assertEquals(1, environment1.getAnimals().size());
+        largeEnvironment.takeIn(mediumBunyip);
+        assertEquals(1, largeEnvironment.getAnimals().size());
     }
 
     @Test
     public void canRemoveAnimal() {
-        environment1.takeIn(mediumBunyip);
-        environment1.takeIn(smallUnicorn);
-        environment1.remove(mediumBunyip);
-        assertEquals(1, environment1.getAnimals().size());
-        assertEquals(smallUnicorn, environment1.getAnimals().get(0));
+        largeEnvironment.takeIn(mediumBunyip);
+        largeEnvironment.takeIn(smallUnicorn);
+        largeEnvironment.remove(mediumBunyip);
+        assertEquals(1, largeEnvironment.getAnimals().size());
+        assertEquals(smallUnicorn, largeEnvironment.getAnimals().get(0));
     }
 
     @Test
     public void peopleCanEnterFloorSpace() {
-        environment1.enterBuilding(richCustomer);
-        environment1.enterBuilding(staff1);
-        assertEquals(2, environment1.getFloorSpace().size());
+        largeEnvironment.enterBuilding(richCustomer);
+        largeEnvironment.enterBuilding(staff1);
+        assertEquals(2, largeEnvironment.getFloorSpace().size());
     }
 
     @Test
     public void staffCanBeSetAsKeepers() {
-        environment1.goToStation(staff1);
-        assertEquals(1, environment1.getWorkers().size());
+        largeEnvironment.goToStation(staff1);
+        assertEquals(1, largeEnvironment.getWorkers().size());
     }
 
     @Test
     public void peopleCanLeaveFloorSpace() {
-        environment1.enterBuilding(richCustomer);
-        environment1.enterBuilding(poorCustomer);
-        environment1.enterBuilding(staff1);
-        environment1.leaveBuilding(poorCustomer);
-        assertEquals(2, environment1.getFloorSpace().size());
-        assertEquals(richCustomer, environment1.getFloorSpace().get(0));
-        assertEquals(staff1, environment1.getFloorSpace().get(1));
+        largeEnvironment.enterBuilding(richCustomer);
+        largeEnvironment.enterBuilding(poorCustomer);
+        largeEnvironment.enterBuilding(staff1);
+        largeEnvironment.leaveBuilding(poorCustomer);
+        assertEquals(2, largeEnvironment.getFloorSpace().size());
+        assertEquals(richCustomer, largeEnvironment.getFloorSpace().get(0));
+        assertEquals(staff1, largeEnvironment.getFloorSpace().get(1));
     }
 
     @Test
     public void staffCanStopWorkingInThisBuilding() {
-        environment1.goToStation(staff1);
-        environment1.leaveStation(staff1);
-        assertEquals(0, environment1.getWorkers().size());
+        largeEnvironment.goToStation(staff1);
+        largeEnvironment.leaveStation(staff1);
+        assertEquals(0, largeEnvironment.getWorkers().size());
     }
 
     @Test
     public void staffCanEvacuateBuilding() {
-        environment1.enterBuilding(richCustomer);
-        environment1.enterBuilding(poorCustomer);
-        environment1.enterBuilding(staff1);
-        Staff.evacuate(environment1);
-        assertEquals(1, environment1.getFloorSpace().size());
+        largeEnvironment.enterBuilding(richCustomer);
+        largeEnvironment.enterBuilding(poorCustomer);
+        largeEnvironment.enterBuilding(staff1);
+        Staff.evacuate(largeEnvironment);
+        assertEquals(1, largeEnvironment.getFloorSpace().size());
     }
 
     @Test
     public void canLimitVisitorsInViewingArea() {
         for(int index = 0; index < 25; index ++) {
-            environment1.enterBuilding(richCustomer);
+            largeEnvironment.enterBuilding(richCustomer);
         }
-        assertEquals(20, environment1.getFloorSpace().size());
+        assertEquals(20, largeEnvironment.getFloorSpace().size());
     }
 
     @Test
     public void canLimitWorkersAtStation() {
         for(int index = 0; index < 8; index ++) {
-            environment1.goToStation(staff1);
+            largeEnvironment.goToStation(staff1);
         }
-        assertEquals(5, environment1.getWorkers().size());
+        assertEquals(5, largeEnvironment.getWorkers().size());
     }
 
     @Test
     public void canLimitAnimalBasedOnSize() {
-        environment1.takeIn(largeDragon);
-        environment2.takeIn(largeDragon);
-        environment3.takeIn(largeDragon);
-        environment2.takeIn(largeUnicorn);
-        environment3.takeIn(smallUnicorn);
-        assertEquals(1,  environment1.getAnimals().size());
-        assertEquals(0, environment2.getAnimals().size());
-        assertEquals(1, environment3.getAnimals().size());
+        largeEnvironment.takeIn(largeDragon);
+        mediumEnvironment.takeIn(largeDragon);
+        smallEnvironment.takeIn(largeDragon);
+        mediumEnvironment.takeIn(largeUnicorn);
+        smallEnvironment.takeIn(smallUnicorn);
+        assertEquals(1,  largeEnvironment.getAnimals().size());
+        assertEquals(0, mediumEnvironment.getAnimals().size());
+        assertEquals(1, smallEnvironment.getAnimals().size());
     }
 
     @Test
-    public void checkAnimalCompatibility() {
-        environment1.takeIn(largeDragon);
-        environment1.takeIn(smallUnicorn);
-        assertEquals(1, environment1.getAnimals().size());
+    public void ensureHerbivoreCarnivoreSeparation() {
+        largeEnvironment.takeIn(largeDragon);
+        largeEnvironment.takeIn(smallUnicorn);
+        assertEquals(1, largeEnvironment.getAnimals().size());
+    }
+
+    @Test
+    public void testOmnivorePresence(){
+        largeEnvironment.takeIn(mediumBunyip);
+        largeEnvironment.takeIn(largeDragon);
+        mediumEnvironment.takeIn(smallUnicorn);
+        mediumEnvironment.takeIn(mediumBunyip);
+        assertEquals(2, mediumEnvironment.getAnimals().size());
+        assertEquals(1, largeEnvironment.getAnimals().size());
     }
 
 
