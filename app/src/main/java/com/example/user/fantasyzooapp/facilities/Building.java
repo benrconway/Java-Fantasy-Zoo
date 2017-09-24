@@ -12,14 +12,14 @@ import java.util.ArrayList;
 
 public abstract class Building {
     private int value;
-    private int customerCapacity;
+    private int viewingCapacity;
     private int staffCapacity;
     private ArrayList<Person> floorSpace;
     private ArrayList<Staff> workers;
 
-    public Building(int value, int customerCapacity, int staffCapacity){
+    public Building(int value, int viewingCapacity, int staffCapacity){
         this.value = value;
-        this.customerCapacity = customerCapacity;
+        this.viewingCapacity = viewingCapacity;
         this.staffCapacity = staffCapacity;
         this.floorSpace = new ArrayList<>();
         this.workers = new ArrayList<>();
@@ -29,8 +29,8 @@ public abstract class Building {
         return value;
     }
 
-    public int getCustomerCapacity() {
-        return customerCapacity;
+    public int getViewingCapacity() {
+        return viewingCapacity;
     }
 
     public int getStaffCapacity() {
@@ -46,11 +46,15 @@ public abstract class Building {
     }
 
     public void enterBuilding(Person person) {
-        floorSpace.add(person);
+        if(!buildingIsFull()) {
+            floorSpace.add(person);
+        }
     }
 
     public void goToStation(Staff staff) {
-        workers.add(staff);
+        if(!stationIsFull()) {
+            workers.add(staff);
+        }
     }
 
     public void leaveBuilding(Person person) {
@@ -86,5 +90,21 @@ public abstract class Building {
             }
         }
         return staffToLeave;
+    }
+
+    public boolean buildingIsFull() {
+        boolean isFull = false;
+        if(floorSpace.size() >= viewingCapacity) {
+            isFull = true;
+        }
+        return isFull;
+    }
+
+    public boolean stationIsFull() {
+        boolean isFull = false;
+        if(workers.size() >= staffCapacity){
+            isFull = true;
+        }
+        return isFull;
     }
 }

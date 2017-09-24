@@ -5,8 +5,14 @@ package com.example.user.fantasyzooapp.animals;
  */
 
 public enum Size {
-    SMALL,
-    MEDIUM,
-    LARGE,
-    HUGE
+    SMALL(0),
+    MEDIUM(1),
+    LARGE(2),
+    HUGE(3);
+
+    private final int value;
+
+    Size(int value) {
+        this.value = value;
+    }
 }

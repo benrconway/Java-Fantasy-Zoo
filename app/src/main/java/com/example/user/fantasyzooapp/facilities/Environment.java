@@ -28,10 +28,22 @@ public class Environment extends Building {
     }
 
     public void takeIn(Animal animal){
-        animals.add(animal);
+       if(isEnvironmentCorrectSize(animal.getSize())) {
+            animals.add(animal);
+        }
     }
 
     public void remove(Animal animal) {
         animals.remove(animal);
     }
+
+    public boolean isEnvironmentCorrectSize(Enum<Size> animalSize){
+        boolean isBigEnough = false;
+            if(animalSize.ordinal() <= size.ordinal()){
+                isBigEnough = true;
+            }
+        return isBigEnough;
+    }
+
+
 }
