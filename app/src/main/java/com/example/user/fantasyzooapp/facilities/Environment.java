@@ -1,6 +1,8 @@
 package com.example.user.fantasyzooapp.facilities;
 
 import com.example.user.fantasyzooapp.animals.Animal;
+import com.example.user.fantasyzooapp.animals.Carnivore;
+import com.example.user.fantasyzooapp.animals.Herbivore;
 import com.example.user.fantasyzooapp.animals.Size;
 
 import java.util.ArrayList;
@@ -28,7 +30,10 @@ public class Environment extends Building {
     }
 
     public void takeIn(Animal animal){
-       if(isEnvironmentCorrectSize(animal.getSize())) {
+        ArrayList<Animal> animalsToCompare = collectAnimalsForComparison(animal);
+
+       if((areAnimalsCompatibile(animalsToCompare))  &&
+               (isEnvironmentCorrectSize(animal.getSize()))) {
             animals.add(animal);
         }
     }
@@ -43,6 +48,30 @@ public class Environment extends Building {
                 isBigEnough = true;
             }
         return isBigEnough;
+    }
+
+    public ArrayList<Animal> collectAnimalsForComparison(Animal animal){
+        ArrayList<Animal> animalsForComparison = new ArrayList<>();
+        for(Animal animalPresent: animals){
+            animalsForComparison.add(animalPresent);
+        }
+        animalsForComparison.add(animal);
+        return animalsForComparison;
+    }
+
+    public boolean areAnimalsCompatibile(ArrayList<Animal> animalsToBeChecked){
+        boolean areCompatible = false;
+        ArrayList<Animal> herbivores = new ArrayList<>();
+        ArrayList<Animal> carnivores = new ArrayList<>();
+        for (Animal animal: animalsToBeChecked){
+            if (animal instanceof Carnivore){
+                carnivores.add(animal);
+            }else{ herbivores.add(animal);}
+        }
+        if((herbivores.size() == 0) || (carnivores.size() == 0)){
+            areCompatible = true;
+        }
+        return areCompatible;
     }
 
 

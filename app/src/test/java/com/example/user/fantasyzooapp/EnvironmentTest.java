@@ -141,4 +141,13 @@ public class EnvironmentTest {
         assertEquals(0, environment2.getAnimals().size());
         assertEquals(1, environment3.getAnimals().size());
     }
+
+    @Test
+    public void checkAnimalCompatibility() {
+        environment1.takeIn(largeDragon);
+        environment1.takeIn(smallUnicorn);
+        assertEquals(1, environment1.getAnimals().size());
+    }
+
+
 }
