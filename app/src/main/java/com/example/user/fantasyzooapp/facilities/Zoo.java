@@ -1,11 +1,12 @@
 package com.example.user.fantasyzooapp.facilities;
 
 import com.example.user.fantasyzooapp.animals.Animal;
-import com.example.user.fantasyzooapp.animals.Size;
 import com.example.user.fantasyzooapp.food.Flesh;
 import com.example.user.fantasyzooapp.food.Vegetation;
+import com.example.user.fantasyzooapp.outsourcing.Building;
 import com.example.user.fantasyzooapp.outsourcing.Construction;
 import com.example.user.fantasyzooapp.outsourcing.RecruitmentAgency;
+import com.example.user.fantasyzooapp.outsourcing.RiffRaff;
 import com.example.user.fantasyzooapp.people.Customer;
 import com.example.user.fantasyzooapp.people.Person;
 import com.example.user.fantasyzooapp.people.Staff;
@@ -28,15 +29,13 @@ public class Zoo {
     private int day;
 //    private int staffCounter;
 //    private int customerCounter;
-
+    private RiffRaff publicLiasonOfficer;
     private RecruitmentAgency recruiter;
     private Construction contractor;
     private Staff staff;
     private Customer customer;
 
     private ArrayList<Person> roaming;
-    private ArrayList<Person> generalPublic;
-    private ArrayList<Staff> awaitingHire;
     private ArrayList<Vegetation> vegetableStock;
     private ArrayList<Flesh> meatStock;
     private ArrayList<Animal> loose;
@@ -60,6 +59,7 @@ public class Zoo {
         built = new ArrayList<>();
         contractor = new Construction();
         recruiter = new RecruitmentAgency();
+        publicLiasonOfficer = new RiffRaff();
     }
 
 
@@ -97,6 +97,10 @@ public class Zoo {
 
     public ArrayList<Animal> getLoose() {
         return loose;
+    }
+
+    public ArrayList<Building> getBuilt() {
+        return built;
     }
 
     public void openGates() {

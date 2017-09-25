@@ -1,7 +1,6 @@
 package com.example.user.fantasyzooapp.people;
 
-import com.example.user.fantasyzooapp.facilities.Building;
-import com.example.user.fantasyzooapp.facilities.Environment;
+import com.example.user.fantasyzooapp.outsourcing.Building;
 
 /**
  * Created by user on 22/09/2017.

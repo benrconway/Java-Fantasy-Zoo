@@ -1,4 +1,4 @@
-package com.example.user.fantasyzooapp.facilities;
+package com.example.user.fantasyzooapp.outsourcing;
 
 import com.example.user.fantasyzooapp.people.Customer;
 import com.example.user.fantasyzooapp.people.Person;
