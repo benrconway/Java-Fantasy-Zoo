@@ -39,7 +39,9 @@ public class Zoo {
     private ArrayList<Vegetation> vegetableStock;
     private ArrayList<Flesh> meatStock;
     private ArrayList<Animal> loose;
+    private ArrayList<Animal> outBack;
     private ArrayList<Building> built;
+
 //    private ArrayList<Building> beingBuilt;
 
     public Zoo() {
@@ -51,7 +53,7 @@ public class Zoo {
 //        staffCounter = 0;
 //        customerCounter = 0;
 
-
+        outBack = new ArrayList<>();
         roaming = new ArrayList<>();
         vegetableStock = new ArrayList<>();
         meatStock = new ArrayList<>();
@@ -83,6 +85,10 @@ public class Zoo {
         return day;
     }
 
+    public ArrayList<Animal> getOutBack() {
+        return outBack;
+    }
+
     public ArrayList<Person> getRoaming() {
         return roaming;
     }
@@ -111,4 +117,8 @@ public class Zoo {
         gatesAreOpen = false;
     }
 
+    public void buy(Animal animal) {
+        funds -= animal.getValue();
+        outBack.add(animal);
+    }
 }

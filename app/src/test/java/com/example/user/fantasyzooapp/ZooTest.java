@@ -21,14 +21,14 @@ public class ZooTest {
     public void before() {
         zoo = new Zoo();
     }
-    roaming = new ArrayList<>();
-    vegetableStock = new ArrayList<>();
-    meatStock = new ArrayList<>();
-    loose = new ArrayList<>();
-    built = new ArrayList<>();
-    contractor = new Construction();
-    recruiter = new RecruitmentAgency();
-    publicLiasonOfficer = new RiffRaff();
+//    roaming = new ArrayList<>();
+//    vegetableStock = new ArrayList<>();
+//    meatStock = new ArrayList<>();
+//    loose = new ArrayList<>();
+//    built = new ArrayList<>();
+//    contractor = new Construction();
+//    recruiter = new RecruitmentAgency();
+//    publicLiasonOfficer = new RiffRaff();
 
     @Test
     public void canRetrieveDetails() {
@@ -42,6 +42,7 @@ public class ZooTest {
         assertEquals(0, zoo.getLoose().size());
         assertEquals(0, zoo.getBuilt().size());
         assertEquals(0, zoo.getVegetableStock().size());
-
     }
+
+
 }
