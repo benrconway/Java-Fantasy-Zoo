@@ -87,7 +87,7 @@ public class Zoo {
     }
 
 
-    public boolean isGatesAreOpen() {
+    public boolean areTheGatesOpen() {
         return gatesAreOpen;
     }
 
