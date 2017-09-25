@@ -3,6 +3,7 @@ package com.example.user.fantasyzooapp;
 import com.example.user.fantasyzooapp.animals.Size;
 import com.example.user.fantasyzooapp.facilities.Zoo;
 import com.example.user.fantasyzooapp.outsourcing.Breeder;
+import com.example.user.fantasyzooapp.outsourcing.Construction;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -19,11 +20,14 @@ public class ZooTest {
 
     Zoo zoo;
     Breeder breeder;
+    Construction contractor;
 
     @Before
     public void before() {
         zoo = new Zoo();
         breeder = new Breeder();
+        contractor = new Construction();
+
     }
 
     @Test
