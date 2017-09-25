@@ -50,6 +50,13 @@ public class AnimalTest {
     }
 
     @Test
+    public void animalsStartHungry() {
+        assertEquals(true, bunyip.isHungry());
+        assertEquals(true, dragon.isHungry());
+        assertEquals(true, unicorn.isHungry());
+    }
+
+    @Test
     public void carnivoreCanEatMeat(){
         dragon.eat(meat);
         assertEquals(1, dragon.getBelly().size());
@@ -67,6 +74,20 @@ public class AnimalTest {
         bunyip.eat(cabbage);
         assertEquals(2, bunyip.getBelly().size());
     }
+
+    @Test
+    public void sleepEmptiesBellies() {
+        bunyip.eat(cabbage);
+        unicorn.eat(cabbage);
+        dragon.eat(meat);
+        bunyip.sleep();
+        unicorn.sleep();
+        dragon.sleep();
+        assertEquals(0, bunyip.getBelly().size());
+        assertEquals(0, dragon.getBelly().size());
+        assertEquals(0, unicorn.getBelly().size());
+    }
+
 
     @Test
     public void dragonCanFly(){

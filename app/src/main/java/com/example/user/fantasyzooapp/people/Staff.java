@@ -23,4 +23,8 @@ public class Staff extends Person implements Keeper{
     public static void evacuate(Building building) {
         building.evacuate();
     }
+
+    public static void secureGallery(Building building) {
+        building.secureFloorSpace();
+    }
 }

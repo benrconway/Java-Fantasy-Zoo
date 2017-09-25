@@ -14,10 +14,12 @@ public abstract class Building {
     private int value;
     private int viewingCapacity;
     private int staffCapacity;
+    private boolean doorsOpen;
     private ArrayList<Person> floorSpace;
     private ArrayList<Staff> workers;
 
     public Building(int value, int viewingCapacity, int staffCapacity){
+        this.doorsOpen = false;
         this.value = value;
         this.viewingCapacity = viewingCapacity;
         this.staffCapacity = staffCapacity;
@@ -45,8 +47,18 @@ public abstract class Building {
         return workers;
     }
 
+    public boolean checkIfOpen() { return doorsOpen; }
+
+    public void openDoors() {
+        doorsOpen = true;
+    }
+
+    public void closeDoors() {
+        doorsOpen = false;
+    }
+
     public void enterBuilding(Person person) {
-        if(!buildingIsFull()) {
+        if(doorsOpen && !buildingIsFull()) {
             floorSpace.add(person);
         }
     }
@@ -71,6 +83,21 @@ public abstract class Building {
             floorSpace.remove(customer);
         }
     }
+//
+//    public void secureWorkSpace() {
+//        for (Staff staff: workers) {
+//            staff.leaveStation();
+//        }
+//
+//    }
+
+    public void secureFloorSpace() {
+        ArrayList<Person> staffToLeave = checkFloorForStaff();
+        for(Person staff: staffToLeave) {
+            floorSpace.remove(staff);
+        }
+        closeDoors();
+    }
 
     public ArrayList<Person> checkForCustomers(){
         ArrayList<Person> customersToLeave = new ArrayList<>();
@@ -82,7 +109,7 @@ public abstract class Building {
         return customersToLeave;
     }
 
-    public ArrayList<Person> checkForStaff(){
+    public ArrayList<Person> checkFloorForStaff(){
         ArrayList<Person> staffToLeave = new ArrayList<>();
         for(Person person: floorSpace) {
             if(person instanceof Staff) {

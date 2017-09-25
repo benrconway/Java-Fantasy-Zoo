@@ -57,6 +57,7 @@ public class EnvironmentTest {
         largeEnvironment.takeVegFromStocks(cabbage);
         mediumEnvironment.takeVegFromStocks(cabbage);
         smallEnvironment.takeVegFromStocks(cabbage);
+        largeEnvironment.openDoors();
     }
 
     @Test
@@ -68,6 +69,9 @@ public class EnvironmentTest {
         assertEquals(0, largeEnvironment.getAnimals().size());
         assertEquals(0, largeEnvironment.getFloorSpace().size());
         assertEquals(0, largeEnvironment.getWorkers().size());
+        assertEquals(1, largeEnvironment.getLarder().size());
+        assertEquals(1, largeEnvironment.getMeatLocker().size());
+        assertEquals(true, largeEnvironment.checkIfOpen());
     }
 
     @Test
@@ -123,6 +127,16 @@ public class EnvironmentTest {
         largeEnvironment.enterBuilding(staff1);
         Staff.evacuate(largeEnvironment);
         assertEquals(1, largeEnvironment.getFloorSpace().size());
+    }
+
+    @Test
+    public void staffCanSecureBuilding() {
+        largeEnvironment.enterBuilding(staff1);
+        largeEnvironment.goToStation(staff2);
+        Staff.secureGallery(largeEnvironment);
+//        Staff.secureStation(largeEnvironment);
+        assertEquals(0, largeEnvironment.getFloorSpace().size());
+        assertEquals(false , largeEnvironment.checkIfOpen());
     }
 
     @Test
