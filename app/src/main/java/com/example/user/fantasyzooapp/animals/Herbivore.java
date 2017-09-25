@@ -27,4 +27,12 @@ public abstract class Herbivore extends Animal {
     public void sleep() {
         belly.clear();
     }
+
+    public boolean isHungry() {
+        boolean hungry = false;
+        if (belly.size() <= 1) {
+            hungry = true;
+        }
+        return hungry;
+    }
 }

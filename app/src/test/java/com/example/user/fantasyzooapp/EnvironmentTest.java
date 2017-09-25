@@ -5,6 +5,9 @@ import com.example.user.fantasyzooapp.animals.Dragon;
 import com.example.user.fantasyzooapp.animals.Size;
 import com.example.user.fantasyzooapp.animals.Unicorn;
 import com.example.user.fantasyzooapp.facilities.Environment;
+import com.example.user.fantasyzooapp.food.Cabbage;
+import com.example.user.fantasyzooapp.food.Meat;
+import com.example.user.fantasyzooapp.food.Vegetation;
 import com.example.user.fantasyzooapp.people.Customer;
 import com.example.user.fantasyzooapp.people.Staff;
 
@@ -31,9 +34,13 @@ public class EnvironmentTest {
     Unicorn mediumUnicorn;
     Unicorn largeUnicorn;
     Bunyip mediumBunyip;
+    Meat meat;
+    Cabbage cabbage;
 
     @Before
     public void before(){
+        meat = new Meat();
+        cabbage = new Cabbage();
         staff1 = new Staff("George", 500, 100, 70);
         staff2 = new Staff("Pamela", 1000, 150, 80);
         richCustomer = new Customer("Yobbo", 10000, 40);
@@ -46,6 +53,10 @@ public class EnvironmentTest {
         largeEnvironment = new Environment(100, 20, 5, Size.LARGE);
         mediumEnvironment = new Environment(100, 20, 5, Size.MEDIUM);
         smallEnvironment = new Environment(100, 20, 5, Size.SMALL);
+        largeEnvironment.takeMeatFromStocks(meat);
+        largeEnvironment.takeVegFromStocks(cabbage);
+        mediumEnvironment.takeVegFromStocks(cabbage);
+        smallEnvironment.takeVegFromStocks(cabbage);
     }
 
     @Test
@@ -158,6 +169,20 @@ public class EnvironmentTest {
         assertEquals(2, mediumEnvironment.getAnimals().size());
         assertEquals(1, largeEnvironment.getAnimals().size());
     }
+
+    @Test
+    public void canFeedAnimals() {
+        largeEnvironment.takeIn(largeDragon);
+        mediumEnvironment.takeIn(mediumBunyip);
+        smallEnvironment.takeIn(smallUnicorn);
+        largeEnvironment.feedCarnivore(largeDragon);
+        mediumEnvironment.feedOmnivore(mediumBunyip);
+        smallEnvironment.feedHerbivore(smallUnicorn);
+        assertEquals(1, largeDragon.getBelly().size());
+        assertEquals(1, mediumBunyip.getBelly().size());
+        assertEquals(1, smallUnicorn.getBelly().size());
+    }
+
 
 
 }

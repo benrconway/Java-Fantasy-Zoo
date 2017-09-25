@@ -30,4 +30,7 @@ public abstract class Animal {
     }
 
     abstract void sleep();
+
+    abstract boolean isHungry();
+
 }

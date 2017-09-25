@@ -3,7 +3,11 @@ package com.example.user.fantasyzooapp.facilities;
 import com.example.user.fantasyzooapp.animals.Animal;
 import com.example.user.fantasyzooapp.animals.Carnivore;
 import com.example.user.fantasyzooapp.animals.Herbivore;
+import com.example.user.fantasyzooapp.animals.Omnivore;
 import com.example.user.fantasyzooapp.animals.Size;
+import com.example.user.fantasyzooapp.food.Edible;
+import com.example.user.fantasyzooapp.food.Flesh;
+import com.example.user.fantasyzooapp.food.Vegetation;
 
 import java.util.ArrayList;
 
@@ -12,6 +16,8 @@ import java.util.ArrayList;
  */
 
 public class Environment extends Building {
+    private ArrayList<Flesh> meatLocker;
+    private ArrayList<Vegetation> larder;
     private ArrayList<Animal> animals;
     private Enum<Size> size;
 
@@ -19,6 +25,8 @@ public class Environment extends Building {
         super(value, viewingCapacity, staffCapactity);
         this.size = size;
         this.animals = new ArrayList<>();
+        this.meatLocker = new ArrayList<>();
+        this.larder = new ArrayList<>();
     }
 
     public ArrayList<Animal> getAnimals() {
@@ -28,6 +36,44 @@ public class Environment extends Building {
     public Enum<Size> getSize() {
         return size;
     }
+
+    public ArrayList<Flesh> getMeatLocker() {
+        return meatLocker;
+    }
+
+    public ArrayList<Vegetation> getLarder() {
+        return larder;
+    }
+
+    public void takeMeatFromStocks(Flesh meat){
+        meatLocker.add(meat);
+    }
+
+    public void takeVegFromStocks(Vegetation food){
+        larder.add(food);
+    }
+
+    public void feedCarnivore(Carnivore carnivore){
+        Flesh meatForFeeding = meatLocker.get(0);
+        carnivore.eat(meatForFeeding);
+        //Test hunger and happiness to see if Carnivore tries to eat Staff
+    }
+
+    public void feedHerbivore(Herbivore herbivore){
+        Vegetation vegForFeeding = larder.get(0);
+        herbivore.eat(vegForFeeding);
+        //Test to see if they will eat while staff are around... maybe they won't eat.
+        // or they might try to attack staff.
+    }
+
+    public void feedOmnivore(Omnivore omnivore) {
+        Edible food = checkFoodSupplies();
+        if(food !=null) {
+            omnivore.eat(food);
+        }
+        //Make it so that nulls make the animal hungry...?
+    }
+
 
     public void takeIn(Animal animal){
         ArrayList<Animal> animalsToCompare = collectAnimalsForComparison(animal);
@@ -42,7 +88,7 @@ public class Environment extends Building {
         animals.remove(animal);
     }
 
-    public boolean isEnvironmentCorrectSize(Enum<Size> animalSize){
+    private boolean isEnvironmentCorrectSize(Enum<Size> animalSize){
         boolean isBigEnough = false;
             if(animalSize.ordinal() <= size.ordinal()){
                 isBigEnough = true;
@@ -50,7 +96,7 @@ public class Environment extends Building {
         return isBigEnough;
     }
 
-    public ArrayList<Animal> collectAnimalsForComparison(Animal animal){
+    private ArrayList<Animal> collectAnimalsForComparison(Animal animal){
         ArrayList<Animal> animalsForComparison = new ArrayList<>();
         for(Animal animalPresent: animals){
             animalsForComparison.add(animalPresent);
@@ -59,7 +105,7 @@ public class Environment extends Building {
         return animalsForComparison;
     }
 
-    public boolean areAnimalsCompatibile(ArrayList<Animal> animalsToBeChecked){
+    private boolean areAnimalsCompatibile(ArrayList<Animal> animalsToBeChecked){
         boolean areCompatible = false;
         ArrayList<Animal> carnivores = new ArrayList<>();
         ArrayList<Animal> others = new ArrayList<>();
@@ -74,5 +120,12 @@ public class Environment extends Building {
         return areCompatible;
     }
 
+    private Edible checkFoodSupplies() {
+        Edible food = null;
+        if(larder.size() > 0) {
+            food = (Edible) larder.get(0);
+        } else { food = (Edible) meatLocker.get(0);}
+        return food;
+    }
 
 }

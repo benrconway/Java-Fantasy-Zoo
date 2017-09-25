@@ -28,4 +28,12 @@ public abstract class Omnivore extends Animal {
         belly.clear();
     }
 
+    public boolean isHungry() {
+        boolean hungry = false;
+        if (belly.size() <= 1) {
+            hungry = true;
+        }
+        return hungry;
+    }
+
 }
