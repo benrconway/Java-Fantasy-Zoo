@@ -23,6 +23,7 @@ public class BreederTest {
     @Before
     public void before(){
         breeder = new Breeder();
+        zoo = new Zoo();
     }
 
     @Test
@@ -33,17 +34,6 @@ public class BreederTest {
     @Test
     public void hasCollection() {
         assertEquals(12, breeder.getCollection().size());
-        assertEquals(hugeDragon, breeder.getCollection().get(0));
     }
 
-    @Test
-    public void canCheckCollectionForAnimal() {
-        breeder.findAnimalByIndex();
-    }
-
-    @Test
-    public void canSellAnimal(){
-        breeder.sell(mediumDragon, zoo);
-        assertEquals(10_900, breeder.getSavings());
-    }
 }

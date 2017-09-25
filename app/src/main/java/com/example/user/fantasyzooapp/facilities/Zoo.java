@@ -1,8 +1,11 @@
 package com.example.user.fantasyzooapp.facilities;
 
 import com.example.user.fantasyzooapp.animals.Animal;
+import com.example.user.fantasyzooapp.animals.Dragon;
+import com.example.user.fantasyzooapp.animals.Size;
 import com.example.user.fantasyzooapp.food.Flesh;
 import com.example.user.fantasyzooapp.food.Vegetation;
+import com.example.user.fantasyzooapp.outsourcing.Breeder;
 import com.example.user.fantasyzooapp.outsourcing.Building;
 import com.example.user.fantasyzooapp.outsourcing.Construction;
 import com.example.user.fantasyzooapp.outsourcing.RecruitmentAgency;
@@ -20,7 +23,7 @@ import java.util.Random;
 
 public class Zoo {
 
-    Random dm;
+//    Random dm;
 
     private boolean gatesAreOpen;
     private int customerCapacity;
@@ -29,11 +32,6 @@ public class Zoo {
     private int day;
 //    private int staffCounter;
 //    private int customerCounter;
-    private RiffRaff publicLiasonOfficer;
-    private RecruitmentAgency recruiter;
-    private Construction contractor;
-    private Staff staff;
-    private Customer customer;
 
     private ArrayList<Person> roaming;
     private ArrayList<Vegetation> vegetableStock;
@@ -59,9 +57,6 @@ public class Zoo {
         meatStock = new ArrayList<>();
         loose = new ArrayList<>();
         built = new ArrayList<>();
-        contractor = new Construction();
-        recruiter = new RecruitmentAgency();
-        publicLiasonOfficer = new RiffRaff();
     }
 
 
@@ -117,8 +112,23 @@ public class Zoo {
         gatesAreOpen = false;
     }
 
-    public void buy(Animal animal) {
-        funds -= animal.getValue();
-        outBack.add(animal);
+    public void buyDragonBySize(Enum<Size> size, Breeder breeder){
+        int indexOfDesiredDragon = 0;
+        ArrayList<Animal> available = breeder.getCollection();
+        for(Animal animal: available) {
+            if((animal instanceof Dragon) && (animal.getSize().ordinal() == size.ordinal())) {
+                indexOfDesiredDragon = available.indexOf(animal);
+            }
+        }
+        Animal desiredDragon = (breeder.getFromCollection(indexOfDesiredDragon));
+        breeder.getPaid(desiredDragon.getValue());
+        funds -= desiredDragon.getValue();
+        outBack.add(desiredDragon);
     }
+
+//    public void buy(Breeder breeder, Animal animal) {
+//        Animal animalToBuy = breeder.getFromCollection(animal);
+//        funds -= animal.getValue();
+//        outBack.add(animal);
+//    }
 }

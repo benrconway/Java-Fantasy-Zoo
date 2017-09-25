@@ -1,6 +1,8 @@
 package com.example.user.fantasyzooapp;
 
+import com.example.user.fantasyzooapp.animals.Size;
 import com.example.user.fantasyzooapp.facilities.Zoo;
+import com.example.user.fantasyzooapp.outsourcing.Breeder;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -16,19 +18,13 @@ import static org.junit.Assert.assertEquals;
 public class ZooTest {
 
     Zoo zoo;
+    Breeder breeder;
 
     @Before
     public void before() {
         zoo = new Zoo();
+        breeder = new Breeder();
     }
-//    roaming = new ArrayList<>();
-//    vegetableStock = new ArrayList<>();
-//    meatStock = new ArrayList<>();
-//    loose = new ArrayList<>();
-//    built = new ArrayList<>();
-//    contractor = new Construction();
-//    recruiter = new RecruitmentAgency();
-//    publicLiasonOfficer = new RiffRaff();
 
     @Test
     public void canRetrieveDetails() {
@@ -42,6 +38,13 @@ public class ZooTest {
         assertEquals(0, zoo.getLoose().size());
         assertEquals(0, zoo.getBuilt().size());
         assertEquals(0, zoo.getVegetableStock().size());
+    }
+
+    @Test
+    public void zooCanBuyFromBreeder() {
+        zoo.buyDragonBySize(Size.HUGE, breeder);
+        assertEquals(1, zoo.getOutBack().size());
+        assertEquals(40_000, breeder.getSavings());
     }
 
 
