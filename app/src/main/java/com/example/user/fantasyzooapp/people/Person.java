@@ -8,19 +8,14 @@ import com.example.user.fantasyzooapp.food.Flesh;
  */
 
 public abstract class Person implements Edible, Flesh {
-    private String name;
     private int wallet;
     private int skill;
 
-    public Person(String name, int wallet, int skill){
-        this.name = name;
+    public Person(int wallet, int skill){
         this.wallet = wallet;
         this.skill = skill;
     }
 
-    public String getName() {
-        return name;
-    }
 
     public int getWallet() {
         return wallet;

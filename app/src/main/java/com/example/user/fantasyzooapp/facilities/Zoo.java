@@ -19,10 +19,14 @@ public class Zoo {
     private int funds;
     private int day;
 
+
     private ArrayList<Person> roaming;
     private ArrayList<Vegetation> vegetableStock;
     private ArrayList<Flesh> meatStock;
     private ArrayList<Animal> loose;
+    private ArrayList<Building> built;
+    private ArrayList<Building> canBeBuilt;
+    private ArrayList<Building> beingBuilt;
 
     public Zoo() {
         gatesAreOpen = false;
@@ -34,6 +38,7 @@ public class Zoo {
         vegetableStock = new ArrayList<>();
         meatStock = new ArrayList<>();
         loose = new ArrayList<>();
+        built = new ArrayList<>();
     }
 
     public boolean isGatesAreOpen() {

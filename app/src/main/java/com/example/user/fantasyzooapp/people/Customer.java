@@ -5,7 +5,7 @@ package com.example.user.fantasyzooapp.people;
  */
 
 public class Customer extends Person implements Consumer{
-    public Customer(String name, int wallet, int skill){
-        super(name, wallet, skill);
+    public Customer(int wallet, int skill){
+        super(wallet, skill);
     }
 }

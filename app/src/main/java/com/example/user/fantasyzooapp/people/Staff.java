@@ -11,8 +11,8 @@ public class Staff extends Person implements Keeper{
 
     private int wage;
 
-    public Staff(String name, int wallet, int wage, int skill){
-        super(name, wallet, skill);
+    public Staff(int wallet, int wage, int skill){
+        super(wallet, skill);
         this.wage = wage;
     }
 

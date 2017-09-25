@@ -19,17 +19,15 @@ public class PeopleTest {
 
     @Before
     public void before(){
-        staff = new Staff("Tom", 500, 100, 60);
-        customer = new Customer("Gail", 3000, 40);
+        staff = new Staff(500, 100, 60);
+        customer = new Customer(3000, 40);
     }
 
     @Test
     public void canGetDetails(){
-        assertEquals("Tom", staff.getName());
         assertEquals(500, staff.getWallet());
         assertEquals(100, staff.getWage());
         assertEquals(60, staff.getSkill());
-        assertEquals("Gail", customer.getName());
         assertEquals(3000, customer.getWallet());
         assertEquals(40, customer.getSkill());
     }

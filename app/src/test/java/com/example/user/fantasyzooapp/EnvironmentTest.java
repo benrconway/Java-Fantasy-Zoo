@@ -41,10 +41,10 @@ public class EnvironmentTest {
     public void before(){
         meat = new Meat();
         cabbage = new Cabbage();
-        staff1 = new Staff("George", 500, 100, 70);
-        staff2 = new Staff("Pamela", 1000, 150, 80);
-        richCustomer = new Customer("Yobbo", 10000, 40);
-        poorCustomer = new Customer("Robbo", 50, 60);
+        staff1 = new Staff(500, 100, 70);
+        staff2 = new Staff(1000, 150, 80);
+        richCustomer = new Customer(10000, 40);
+        poorCustomer = new Customer(50, 60);
         largeDragon = new Dragon("Talia", Size.LARGE, 3000);
         smallUnicorn = new Unicorn("Blaze", Size.SMALL, 600);
         mediumUnicorn = new Unicorn("Thunder", Size.MEDIUM, 700);
@@ -55,6 +55,7 @@ public class EnvironmentTest {
         smallEnvironment = new Environment(100, 20, 5, Size.SMALL);
         largeEnvironment.takeMeatFromStocks(meat);
         largeEnvironment.takeVegFromStocks(cabbage);
+        mediumEnvironment.takeMeatFromStocks(meat);
         mediumEnvironment.takeVegFromStocks(cabbage);
         smallEnvironment.takeVegFromStocks(cabbage);
         largeEnvironment.openDoors();
@@ -191,9 +192,10 @@ public class EnvironmentTest {
         smallEnvironment.takeIn(smallUnicorn);
         largeEnvironment.feedCarnivore(largeDragon);
         mediumEnvironment.feedOmnivore(mediumBunyip);
+        mediumEnvironment.feedOmnivore(mediumBunyip);
         smallEnvironment.feedHerbivore(smallUnicorn);
         assertEquals(1, largeDragon.getBelly().size());
-        assertEquals(1, mediumBunyip.getBelly().size());
+        assertEquals(2, mediumBunyip.getBelly().size());
         assertEquals(1, smallUnicorn.getBelly().size());
     }
 
