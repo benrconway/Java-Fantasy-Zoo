@@ -10,4 +10,9 @@ public class Cabbage implements Edible, Vegetation {
     public Cabbage(){
         this.value = 5;
     }
+
+    @Override
+    public int getValue() {
+        return value;
+    }
 }

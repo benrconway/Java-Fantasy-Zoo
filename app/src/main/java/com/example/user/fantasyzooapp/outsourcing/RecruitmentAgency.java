@@ -9,7 +9,6 @@ import java.util.ArrayList;
  */
 
 public class RecruitmentAgency {
-    private Staff staff;
     private ArrayList<Staff> awaitingHire;
 
     public RecruitmentAgency(){
@@ -17,8 +16,16 @@ public class RecruitmentAgency {
         setUpStaffApplications();
     }
 
+    public ArrayList<Staff> getAwaitingHire() {
+        return awaitingHire;
+    }
+
     public void setUpStaffApplications() {
-        staff = new Staff(300, 50, 65);
+        Staff staff = new Staff(300, 50, 65);
         awaitingHire.add(staff);
+    }
+
+    public Staff transferStaff() {
+       return awaitingHire.get(0);
     }
 }

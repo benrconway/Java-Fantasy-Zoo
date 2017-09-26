@@ -16,6 +16,10 @@ public abstract class Person implements Edible, Flesh {
         this.skill = skill;
     }
 
+    @Override
+    public int getValue() {
+        return wallet;
+    }
 
     public int getWallet() {
         return wallet;

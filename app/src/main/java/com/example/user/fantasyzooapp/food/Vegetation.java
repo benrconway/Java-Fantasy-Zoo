@@ -5,4 +5,5 @@ package com.example.user.fantasyzooapp.food;
  */
 
 public interface Vegetation {
+    int getValue();
 }
