@@ -30,6 +30,8 @@ public class PeopleTest {
         assertEquals(60, staff.getSkill());
         assertEquals(3000, customer.getWallet());
         assertEquals(40, customer.getSkill());
+        assertEquals(500, staff.getValue());
+        assertEquals(3000, customer.getValue());
     }
 
 

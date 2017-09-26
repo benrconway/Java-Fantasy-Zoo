@@ -170,7 +170,7 @@ public class Zoo {
         structure.goToStation(staff);
     }
 
-    public void peopleEnter(Person person, Building structure) {
+    public void enter(Person person, Building structure) {
         structure.enterBuilding(person);
     }
 
@@ -179,4 +179,10 @@ public class Zoo {
     }
 
 
+    public void openForBusiness() {
+        openGates();
+        for(Building facility: structures) {
+            facility.openDoors();
+        }
+    }
 }

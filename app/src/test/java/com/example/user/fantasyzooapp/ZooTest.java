@@ -38,7 +38,7 @@ public class ZooTest {
 
     @Test
     public void canRetrieveDetails() {
-        assertEquals(false, zoo.areTheGatesOpen());
+        assertEquals(true, zoo.areTheGatesOpen());
         assertEquals(100, zoo.getCustomerCapacity());
         assertEquals(10, zoo.getTicketPrice());
         assertEquals(1_000_000, zoo.getFunds());
@@ -109,12 +109,13 @@ public class ZooTest {
 
     @Test
     public void peopleInZooCanEnterEnvironment() {
+        zoo.addStructureByIndex(2, contractor);
+        zoo.openForBusiness();
         zoo.hireStaff(agencyRep);
         generalPublic.enter(zoo);
-        zoo.peopleEnter(zoo.customer(0), zoo.structure(0));
-        zoo.addStructureByIndex(2, contractor);
-        zoo.workAt(zoo.staff(0), zoo.structure(0));
-        assertEquals(1, zoo.structure(0).getWorkers().size());
+        zoo.enter(zoo.customer(0), zoo.structure(0));
+        zoo.enter(zoo.staff(0), zoo.structure(0));
+        assertEquals(2, zoo.structure(0).getFloorSpace().size());
     }
 
 
