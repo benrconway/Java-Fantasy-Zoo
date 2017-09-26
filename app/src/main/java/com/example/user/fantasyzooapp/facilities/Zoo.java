@@ -109,6 +109,10 @@ public class Zoo {
         return atWork;
     }
 
+    public int getDailyTakings() {
+        return dailyTakings;
+    }
+
     public void openGates() {
         gatesAreOpen = true;
     }
@@ -171,10 +175,12 @@ public class Zoo {
 
     public void workAt(Staff staff, Building structure) {
         structure.goToStation(staff);
+        atWork.remove(staff);
     }
 
-    public void enter(Person person, Building structure) {
+    public void enter(Customer person, Building structure) {
         structure.enterBuilding(person);
+        roaming.remove(person);
     }
 
     public Customer customer(int index) {
@@ -222,11 +228,29 @@ public class Zoo {
         enclosure.addToLarder(vegetable);
     }
 
-    public void closeUpZoo() {
-
+    public void customerExitsBuilding(int index, int building) {
+        Customer customer = structure(building).getCustomer(index);
+        roaming.add(customer);
+        structure(building).leaveBuilding(customer);
     }
 
-    private void endOfDay() {
-
+    public void staffLeaveStation(int index, int building) {
+        Staff staff = structure(building).getStaff(index);
+        atWork.add(staff);
+        structure(building).leaveStation(staff);
     }
+
+
+
+//    public void closeUpZoo() {
+//        Zoo.clearZooOfCustomers();
+//        Staff.secureBuildings();
+//        closeGates();
+//    }
+//
+//    private void endOfDay() {
+//        Zoo.balanceAccounts();
+//        Zoo.turnOutTheLights();
+//        day++;
+//    }
 }

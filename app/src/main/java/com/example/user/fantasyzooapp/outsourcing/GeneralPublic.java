@@ -1,5 +1,6 @@
 package com.example.user.fantasyzooapp.outsourcing;
 
+import com.example.user.fantasyzooapp.facilities.Building;
 import com.example.user.fantasyzooapp.facilities.Zoo;
 import com.example.user.fantasyzooapp.people.Customer;
 
@@ -32,6 +33,10 @@ public class GeneralPublic {
             Customer person = people.get(0);
             zoo.sellTicket(person);
         }
+    }
+
+    public void leaveBuilding(Building building) {
+
     }
 
 }

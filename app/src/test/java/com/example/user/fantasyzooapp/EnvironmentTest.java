@@ -92,8 +92,7 @@ public class EnvironmentTest {
     @Test
     public void peopleCanEnterFloorSpace() {
         largeEnvironment.enterBuilding(richCustomer);
-        largeEnvironment.enterBuilding(staff1);
-        assertEquals(2, largeEnvironment.getFloorSpace().size());
+        assertEquals(1, largeEnvironment.getFloorSpace().size());
     }
 
     @Test
@@ -106,11 +105,9 @@ public class EnvironmentTest {
     public void peopleCanLeaveFloorSpace() {
         largeEnvironment.enterBuilding(richCustomer);
         largeEnvironment.enterBuilding(poorCustomer);
-        largeEnvironment.enterBuilding(staff1);
         largeEnvironment.leaveBuilding(poorCustomer);
         assertEquals(2, largeEnvironment.getFloorSpace().size());
         assertEquals(richCustomer, largeEnvironment.getFloorSpace().get(0));
-        assertEquals(staff1, largeEnvironment.getFloorSpace().get(1));
     }
 
     @Test
@@ -124,17 +121,14 @@ public class EnvironmentTest {
     public void staffCanEvacuateBuilding() {
         largeEnvironment.enterBuilding(richCustomer);
         largeEnvironment.enterBuilding(poorCustomer);
-        largeEnvironment.enterBuilding(staff1);
         Staff.evacuate(largeEnvironment);
-        assertEquals(1, largeEnvironment.getFloorSpace().size());
+        assertEquals(0, largeEnvironment.getFloorSpace().size());
     }
 
     @Test
     public void staffCanSecureBuilding() {
-        largeEnvironment.enterBuilding(staff1);
         largeEnvironment.goToStation(staff2);
         Staff.secureGallery(largeEnvironment);
-//        Staff.secureStation(largeEnvironment);
         assertEquals(0, largeEnvironment.getFloorSpace().size());
         assertEquals(false , largeEnvironment.checkIfOpen());
     }

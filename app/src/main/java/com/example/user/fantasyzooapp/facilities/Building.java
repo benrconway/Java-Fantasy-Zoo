@@ -16,7 +16,7 @@ public abstract class Building {
     private int viewingCapacity;
     private int staffCapacity;
     private boolean doorsOpen;
-    private ArrayList<Person> floorSpace;
+    private ArrayList<Customer> floorSpace;
     private ArrayList<Staff> workers;
 
     public Building(int value, int viewingCapacity, int staffCapacity){
@@ -40,7 +40,7 @@ public abstract class Building {
         return staffCapacity;
     }
 
-    public ArrayList<Person> getFloorSpace() {
+    public ArrayList<Customer> getFloorSpace() {
         return floorSpace;
     }
 
@@ -58,7 +58,7 @@ public abstract class Building {
         doorsOpen = false;
     }
 
-    public void enterBuilding(Person person) {
+    public void enterBuilding(Customer person) {
         if(doorsOpen && !buildingIsFull()) {
             floorSpace.add(person);
         }
@@ -70,54 +70,24 @@ public abstract class Building {
         }
     }
 
-    public void leaveBuilding(Person person) {
+    public Customer leaveBuilding(Customer person) {
+        Customer customer = person;
         floorSpace.remove(person);
+        return customer;
     }
 
     public void leaveStation(Staff staff) {
         workers.remove(staff);
     }
 
-    public void evacuate() {
-        ArrayList<Person> customersToLeave = checkForCustomers();
-        for(Person customer: customersToLeave) {
-            floorSpace.remove(customer);
-        }
-    }
-//
-//    public void secureWorkSpace() {
-//        for (Staff staff: workers) {
-//            staff.leaveStation();
-//        }
-//
-//    }
-
-    public void secureFloorSpace() {
-        ArrayList<Person> staffToLeave = checkFloorForStaff();
-        for(Person staff: staffToLeave) {
-            floorSpace.remove(staff);
-        }
-        closeDoors();
-    }
-
-    public ArrayList<Person> checkForCustomers(){
-        ArrayList<Person> customersToLeave = new ArrayList<>();
-        for(Person person: floorSpace) {
-            if(person instanceof Customer) {
-                customersToLeave.add(person);
-            }
-        }
+    public ArrayList<Customer> evacuate() {
+        ArrayList<Customer> customersToLeave = getFloorSpace();
+        floorSpace.clear();
         return customersToLeave;
     }
 
-    public ArrayList<Person> checkFloorForStaff(){
-        ArrayList<Person> staffToLeave = new ArrayList<>();
-        for(Person person: floorSpace) {
-            if(person instanceof Staff) {
-                staffToLeave.add(person);
-            }
-        }
-        return staffToLeave;
+    public void secureFloorSpace() {
+        closeDoors();
     }
 
     public boolean buildingIsFull() {
@@ -136,5 +106,13 @@ public abstract class Building {
         return isFull;
     }
 
+
+    public Customer getCustomer(int index) {
+        return floorSpace.get(index);
+    }
+
+    public Staff getStaff(int index) {
+        return workers.get(index);
+    }
 
 }

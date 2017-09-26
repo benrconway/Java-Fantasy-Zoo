@@ -89,7 +89,7 @@ public class ZooTest {
     public void generalPublicCanEnterZoo() {
         generalPublic.enter(zoo);
         assertEquals(1, zoo.getRoaming().size());
-        assertEquals(1_000_010, zoo.getFunds());
+        assertEquals(10, zoo.getDailyTakings());
         assertEquals(490, zoo.getRoaming().get(0).getWallet());
     }
 
@@ -106,17 +106,27 @@ public class ZooTest {
         zoo.addStructureByIndex(2, contractor);
         zoo.workAt(zoo.staff(0), zoo.structure(0));
         assertEquals(1, zoo.structure(0).getWorkers().size());
+        assertEquals(0, zoo.getAtWork().size());
+    }
+
+    @Test
+    public void canReturnStaffToAtWork() {
+        zoo.hireStaff(agencyRep);
+        zoo.addStructureByIndex(2, contractor);
+        zoo.workAt(zoo.staff(0), zoo.structure(0));
+        zoo.staffLeaveStation(0, 0);
+        assertEquals(0, zoo.structure(0).getWorkers().size());
+        assertEquals(1, zoo.getAtWork().size());
     }
 
     @Test
     public void peopleInZooCanEnterEnvironment() {
         zoo.addStructureByIndex(2, contractor);
         zoo.openForBusiness();
-        zoo.hireStaff(agencyRep);
         generalPublic.enter(zoo);
         zoo.enter(zoo.customer(0), zoo.structure(0));
-        zoo.enter(zoo.staff(0), zoo.structure(0));
-        assertEquals(2, zoo.structure(0).getFloorSpace().size());
+        assertEquals(1, zoo.structure(0).getFloorSpace().size());
+        assertEquals(0, zoo.getRoaming().size());
     }
 
     @Test
@@ -142,6 +152,17 @@ public class ZooTest {
         zoo.resupplyVegetables(zoo.structure(0), 10);
         Environment environment = (Environment) zoo.structure(0);
         assertEquals(10, environment.getLarder().size());
+    }
+
+    @Test
+    public void peopleInZooCanLeaveEnvironment() {
+        zoo.addStructureByIndex(2, contractor);
+        zoo.openForBusiness();
+        generalPublic.enter(zoo);
+        zoo.enter(zoo.customer(0), zoo.structure(0));
+        zoo.customerExitsBuilding(0, 0);
+        assertEquals(0, zoo.structure(0).getFloorSpace().size());
+        assertEquals(1, zoo.getRoaming().size());
     }
 
 
