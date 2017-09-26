@@ -105,7 +105,7 @@ public class ZooTest {
     public void canAssignStaffToEnvironment() {
         zoo.hireStaff(agencyRep);
         zoo.addStructureByIndex(2, contractor);
-        zoo.workAt(zoo.staff(0), zoo.structure(0));
+        zoo.workAt(0, 0);
         assertEquals(1, zoo.structure(0).getWorkers().size());
         assertEquals(0, zoo.getAtWork().size());
     }
@@ -114,7 +114,7 @@ public class ZooTest {
     public void canReturnStaffToAtWork() {
         zoo.hireStaff(agencyRep);
         zoo.addStructureByIndex(2, contractor);
-        zoo.workAt(zoo.staff(0), zoo.structure(0));
+        zoo.workAt(0, 0);
         zoo.staffLeaveStation(0, 0);
         assertEquals(0, zoo.structure(0).getWorkers().size());
         assertEquals(1, zoo.getAtWork().size());
@@ -125,7 +125,7 @@ public class ZooTest {
         zoo.addStructureByIndex(2, contractor);
         zoo.openForBusiness();
         generalPublic.enter(zoo);
-        zoo.enter(zoo.customer(0), zoo.structure(0));
+        zoo.enter(zoo.customer(0), 0);
         assertEquals(1, zoo.structure(0).getFloorSpace().size());
         assertEquals(0, zoo.getRoaming().size());
     }
@@ -134,14 +134,14 @@ public class ZooTest {
     public void canTransferAnimalFromOutBackToEnvironment() {
         zoo.addStructureByIndex(0, contractor);
         zoo.buyAnimalByIndex(2, breeder);
-        zoo.transfer(zoo.fromAnimalStorage(0), zoo.structure(0));
+        zoo.transfer(0, 0);
     }
 
     @Test
     public void canRestockEnclosuresMeatSupplies() {
         zoo.addStructureByIndex(3, contractor);
         zoo.restockMeat(10, foodSupplier);
-        zoo.resupplyMeat(zoo.structure(0), 10);
+        zoo.resupplyMeat(0, 10);
         Environment environment = (Environment) zoo.structure(0);
         assertEquals(10, environment.getMeatLocker().size());
     }
@@ -150,7 +150,7 @@ public class ZooTest {
     public void canRestockEnclosuresVegSupplies() {
         zoo.addStructureByIndex(3, contractor);
         zoo.restockVegetables(10, foodSupplier);
-        zoo.resupplyVegetables(zoo.structure(0), 10);
+        zoo.resupplyVegetables(0, 10);
         Environment environment = (Environment) zoo.structure(0);
         assertEquals(10, environment.getLarder().size());
     }
@@ -178,7 +178,24 @@ public class ZooTest {
 
     @Test
     public void runtheZooForADay(){
-
+        zoo.addStructureByIndex(1, contractor);
+        zoo.addStructureByIndex(2, contractor);
+        zoo.addStructureByIndex(2, contractor);
+        zoo.buyAnimalByIndex(2, breeder);
+        zoo.buyAnimalByIndex(7, breeder);
+        zoo.buyAnimalByIndex(11, breeder);
+        zoo.transfer(0, 0);
+        zoo.transfer(0, 1);
+        zoo.transfer(0, 2);
+        zoo.hireStaff(agencyRep);
+        zoo.hireStaff(agencyRep);
+        zoo.hireStaff(agencyRep);
+        for(int index = 0; index < 19; index++) {
+            generalPublic.enter(zoo);
+        }
+        zoo.restockMeat(100, foodSupplier);
+        zoo.restockVegetables(100, foodSupplier);
+        zoo.resupplyVegetables(1, 50);
     }
 
 

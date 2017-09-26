@@ -207,13 +207,15 @@ public class Zoo {
     }
 
 
-    public void workAt(Staff staff, Building structure) {
-        structure.goToStation(staff);
-        atWork.remove(staff);
+    public void workAt(int staffNumber, int buildingByIndex) {
+//        Building structure = structure(buildingByIndex);
+        structure(buildingByIndex).goToStation(staff(staffNumber));
+        atWork.remove(staffNumber);
     }
 
-    public void enter(Customer person, Building structure) {
-        structure.enterBuilding(person);
+    public void enter(Customer person, int buildingByIndex) {
+        //Building structure = structure(buildingByIndex);
+        structure(buildingByIndex).enterBuilding(person);
         roaming.remove(person);
     }
 
@@ -229,33 +231,34 @@ public class Zoo {
         return animalStorage.get(0);
     }
 
-    public void transfer(Animal animal, Building structure) {
-        Environment enclosure = (Environment) structure;
-        enclosure.takeIn(animal);
+    public void transfer(int animal, int structure) {
+        Animal animalStored = fromAnimalStorage(animal);
+        Environment enclosure = (Environment) structure(structure);
+        enclosure.takeIn(animalStored);
     }
 
-    public void resupplyMeat(Building structure, int quantity) {
+    public void resupplyMeat(int buildingByIndex, int quantity) {
+        Environment structure = (Environment) structure(buildingByIndex);
         for( int index = 0; index < quantity; index++) {
             transferMeat(structure);
         }
 
     }
-    private void transferMeat(Building structure) {
-        Environment enclosure = (Environment) structure;
+    private void transferMeat(Environment structure) {
         Flesh meat = meatStock.remove(0);
-        enclosure.addToMeatLocker(meat);
+        structure.addToMeatLocker(meat);
     }
 
-    public void resupplyVegetables(Building structure, int quantity) {
+    public void resupplyVegetables(int buildingByIndex, int quantity) {
+        Environment structure = (Environment) structure(buildingByIndex);
         for( int index = 0; index < quantity; index++) {
             transferVeg(structure);
         }
 
     }
-    private void transferVeg(Building structure) {
-        Environment enclosure = (Environment) structure;
+    private void transferVeg(Environment structure) {
         Vegetation vegetable = vegetableStock.remove(0);
-        enclosure.addToLarder(vegetable);
+        structure.addToLarder(vegetable);
     }
 
     public void customerExitsBuilding(int index, int building) {
@@ -264,8 +267,8 @@ public class Zoo {
         structure(building).leaveBuilding(customer);
     }
 
-    public void staffLeaveStation(int index, int building) {
-        Staff staff = structure(building).getStaff(index);
+    public void staffLeaveStation(int staffNumber, int building) {
+        Staff staff = structure(building).getStaff(staffNumber);
         atWork.add(staff);
         structure(building).leaveStation(staff);
     }
