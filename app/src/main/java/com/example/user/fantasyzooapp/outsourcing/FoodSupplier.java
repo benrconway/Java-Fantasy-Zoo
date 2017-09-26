@@ -36,4 +36,8 @@ public class FoodSupplier {
     public Vegetation getVegetable() {
         return vegetableStock.get(0);
     }
+
+    public Flesh getMeat() {
+        return fleshStock.get(0);
+    }
 }

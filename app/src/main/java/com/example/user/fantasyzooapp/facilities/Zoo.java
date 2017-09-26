@@ -8,6 +8,7 @@ import com.example.user.fantasyzooapp.outsourcing.Building;
 import com.example.user.fantasyzooapp.outsourcing.Construction;
 import com.example.user.fantasyzooapp.outsourcing.FoodSupplier;
 import com.example.user.fantasyzooapp.outsourcing.RecruitmentAgency;
+import com.example.user.fantasyzooapp.people.Customer;
 import com.example.user.fantasyzooapp.people.Person;
 import com.example.user.fantasyzooapp.people.Staff;
 
@@ -29,13 +30,13 @@ public class Zoo {
 //    private int staffCounter;
 //    private int customerCounter;
 
-    private ArrayList<Person> roaming;
+    private ArrayList<Customer> roaming;
     private ArrayList<Vegetation> vegetableStock;
     private ArrayList<Flesh> meatStock;
     private ArrayList<Animal> loose;
     private ArrayList<Animal> outBack;
     private ArrayList<Building> structures;
-    private ArrayList<Staff> hired;
+    private ArrayList<Staff> atWork;
 
 //    private ArrayList<Building> beingBuilt;
 
@@ -47,7 +48,7 @@ public class Zoo {
         day = 0;
 //        staffCounter = 0;
 //        customerCounter = 0;
-        hired = new ArrayList<>();
+        atWork = new ArrayList<>();
         outBack = new ArrayList<>();
         roaming = new ArrayList<>();
         vegetableStock = new ArrayList<>();
@@ -81,7 +82,7 @@ public class Zoo {
         return outBack;
     }
 
-    public ArrayList<Person> getRoaming() {
+    public ArrayList<Customer> getRoaming() {
         return roaming;
     }
 
@@ -101,8 +102,8 @@ public class Zoo {
         return structures;
     }
 
-    public ArrayList<Staff> getHired() {
-        return hired;
+    public ArrayList<Staff> getAtWork() {
+        return atWork;
     }
 
     public void openGates() {
@@ -129,18 +130,53 @@ public class Zoo {
 
     public void hireStaff(RecruitmentAgency representative) {
         Staff staff = representative.transferStaff();
-        hired.add(staff);
+        atWork.add(staff);
         funds -= staff.getWallet();
     }
 
     public void restockVegetables(int quantity, FoodSupplier foodSupplier) {
         Vegetation food = null;
-        for(int index = 0; index < quantity; index ++) {
+        for(int index = 0; index < quantity; index++) {
             food = foodSupplier.getVegetable();
             vegetableStock.add(food);
         }
-
         funds -= (quantity * food.getValue());
-
     }
+
+    public void restockMeat(int quantity, FoodSupplier foodSupplier) {
+        Flesh food = null;
+        for(int index = 0; index < quantity; index++) {
+            food = foodSupplier.getMeat();
+            meatStock.add(food);
+        }
+        funds -= (quantity * food.getValue());
+    }
+
+    public void sellTicket(Customer person) {
+        person.buyTicket(ticketPrice);
+        funds += ticketPrice;
+        roaming.add(person);
+    }
+
+    public Building structure(int index) {
+        return structures.get(index);
+    }
+
+    public Staff staff(int index) {
+        return atWork.get(index);
+    }
+
+    public void workAt(Staff staff, Building structure) {
+        structure.goToStation(staff);
+    }
+
+    public void peopleEnter(Person person, Building structure) {
+        structure.enterBuilding(person);
+    }
+
+    public Customer customer(int index) {
+        return roaming.get(index);
+    }
+
+
 }

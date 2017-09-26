@@ -28,4 +28,8 @@ public abstract class Person implements Edible, Flesh {
     public int getSkill() {
         return skill;
     }
+
+    public void buyTicket(int ticketPrice) {
+        this.wallet -= ticketPrice;
+    }
 }

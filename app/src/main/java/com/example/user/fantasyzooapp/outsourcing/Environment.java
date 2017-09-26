@@ -78,7 +78,7 @@ public class Environment extends Building {
     public void takeIn(Animal animal){
         ArrayList<Animal> animalsToCompare = collectAnimalsForComparison(animal);
 
-       if((areAnimalsCompatibile(animalsToCompare))  &&
+       if((areAnimalsCompatible(animalsToCompare))  &&
                (isEnvironmentCorrectSize(animal.getSize()))) {
             animals.add(animal);
         }
@@ -105,7 +105,7 @@ public class Environment extends Building {
         return animalsForComparison;
     }
 
-    private boolean areAnimalsCompatibile(ArrayList<Animal> animalsToBeChecked){
+    private boolean areAnimalsCompatible(ArrayList<Animal> animalsToBeChecked){
         boolean areCompatible = false;
         ArrayList<Animal> carnivores = new ArrayList<>();
         ArrayList<Animal> others = new ArrayList<>();

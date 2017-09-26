@@ -9,7 +9,7 @@ public class Meat implements Edible, Flesh {
     private int value;
 
     public Meat(){
-        this.value = 5;
+        this.value = 10;
     }
 
     @Override

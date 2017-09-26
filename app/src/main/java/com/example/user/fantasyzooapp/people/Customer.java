@@ -8,4 +8,6 @@ public class Customer extends Person implements Consumer{
     public Customer(int wallet, int skill){
         super(wallet, skill);
     }
+
+
 }
