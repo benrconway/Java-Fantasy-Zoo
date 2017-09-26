@@ -160,7 +160,7 @@ public class ZooTest {
         zoo.addStructureByIndex(2, contractor);
         zoo.openForBusiness();
         generalPublic.enter(zoo);
-        zoo.enter(zoo.customer(0), zoo.structure(0));
+        zoo.enter(zoo.customer(0), 0);
         zoo.customerExitsBuilding(0, 0);
         assertEquals(0, zoo.structure(0).getFloorSpace().size());
         assertEquals(1, zoo.getRoaming().size());
@@ -178,24 +178,22 @@ public class ZooTest {
 
     @Test
     public void runtheZooForADay(){
-        zoo.addStructureByIndex(1, contractor);
         zoo.addStructureByIndex(2, contractor);
         zoo.addStructureByIndex(2, contractor);
-        zoo.buyAnimalByIndex(2, breeder);
-        zoo.buyAnimalByIndex(7, breeder);
-        zoo.buyAnimalByIndex(11, breeder);
-        zoo.transfer(0, 0);
-        zoo.transfer(0, 1);
-        zoo.transfer(0, 2);
         zoo.hireStaff(agencyRep);
         zoo.hireStaff(agencyRep);
         zoo.hireStaff(agencyRep);
+        zoo.openForBusiness();
+        zoo.openGates();
         for(int index = 0; index < 19; index++) {
             generalPublic.enter(zoo);
         }
-        zoo.restockMeat(100, foodSupplier);
-        zoo.restockVegetables(100, foodSupplier);
-        zoo.resupplyVegetables(1, 50);
+        zoo.closeUpZoo();
+        zoo.endOfDay();
+        assertEquals(989_140, zoo.getFunds());
+        assertEquals(80, zoo.getCustomerCapacity());
+        assertEquals(false, zoo.areTheGatesOpen());
+        assertEquals(false, zoo.structure(0).checkIfOpen());
     }
 
 

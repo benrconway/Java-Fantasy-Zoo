@@ -132,13 +132,10 @@ public class Zoo {
         gatesAreOpen = false;
     }
 
-    private int updateCapacity() {
-        int runningCapacity = 20;
+    private void updateCapacity() {
         for(Building building: structures) {
-            runningCapacity += building.getViewingCapacity();
+            customerCapacity += building.getViewingCapacity();
         }
-
-        return runningCapacity;
     }
 
     //Buying from Outsourced elements
@@ -261,8 +258,8 @@ public class Zoo {
         structure.addToLarder(vegetable);
     }
 
-    public void customerExitsBuilding(int index, int building) {
-        Customer customer = structure(building).getCustomer(index);
+    public void customerExitsBuilding(int customerIndex, int building) {
+        Customer customer = structure(building).getCustomer(customerIndex);
         roaming.add(customer);
         structure(building).leaveBuilding(customer);
     }
@@ -277,7 +274,7 @@ public class Zoo {
         roaming.remove(index);
         customerCounter--;
     }
-    public void clearZooOfCustomers() {
+    private void clearZooOfCustomers() {
         for(Building building: structures) {
             Staff.evacuate(building);
             Staff.secureGallery(building);
@@ -295,16 +292,18 @@ public class Zoo {
         customerCounter = 0;
     }
 
-    private void endOfDay() {
+    public void endOfDay() {
         balanceAccounts();
         turnOutTheLights();
         day++;
         updateCapacity();
-
     }
 
     private void balanceAccounts() {
         funds += dailyTakings;
+        for(Staff staff: atWork) {
+            funds -= staff.getWage();
+        }
     }
 
     private void turnOutTheLights() {
