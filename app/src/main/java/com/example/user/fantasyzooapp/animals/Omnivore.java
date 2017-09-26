@@ -36,4 +36,6 @@ public abstract class Omnivore extends Animal {
         return hungry;
     }
 
+//    public abstract int breakOut();
+
 }

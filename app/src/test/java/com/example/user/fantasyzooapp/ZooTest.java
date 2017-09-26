@@ -1,5 +1,6 @@
 package com.example.user.fantasyzooapp;
 
+import com.example.user.fantasyzooapp.animals.Herbivore;
 import com.example.user.fantasyzooapp.facilities.Environment;
 import com.example.user.fantasyzooapp.facilities.Zoo;
 import com.example.user.fantasyzooapp.outsourcing.Breeder;
@@ -180,6 +181,13 @@ public class ZooTest {
     public void runtheZooForADay(){
         zoo.addStructureByIndex(2, contractor);
         zoo.addStructureByIndex(2, contractor);
+        zoo.buyAnimalByIndex(7, breeder);
+        zoo.transfer(0, 0);
+        zoo.restockVegetables(1, foodSupplier);
+        zoo.resupplyVegetables(1,1);
+        Environment enclosure = (Environment) zoo.structure(0);
+        Herbivore herbivore = (Herbivore) enclosure.animal(0);
+        enclosure.feedHerbivore(herbivore);
         zoo.hireStaff(agencyRep);
         zoo.hireStaff(agencyRep);
         zoo.hireStaff(agencyRep);
@@ -190,11 +198,16 @@ public class ZooTest {
         }
         zoo.closeUpZoo();
         zoo.endOfDay();
-        assertEquals(989_140, zoo.getFunds());
+        assertEquals(988135, zoo.getFunds());
         assertEquals(80, zoo.getCustomerCapacity());
         assertEquals(false, zoo.areTheGatesOpen());
         assertEquals(false, zoo.structure(0).checkIfOpen());
+        assertEquals(0, herbivore.getBelly().size());
     }
+
+
+
+//    @Test
 
 
 

@@ -7,5 +7,5 @@ import com.example.user.fantasyzooapp.people.Person;
  */
 
 public interface Dangerous {
-    void attack(Person person);
+    int breakOutModifier();
 }

@@ -35,4 +35,5 @@ public abstract class Carnivore extends Animal {
         }
         return hungry;
     }
+
 }

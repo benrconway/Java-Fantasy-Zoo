@@ -1,7 +1,5 @@
 package com.example.user.fantasyzooapp.facilities;
 
-import android.os.Build;
-
 import com.example.user.fantasyzooapp.animals.Animal;
 import com.example.user.fantasyzooapp.food.Flesh;
 import com.example.user.fantasyzooapp.food.Vegetation;
@@ -10,10 +8,10 @@ import com.example.user.fantasyzooapp.outsourcing.Construction;
 import com.example.user.fantasyzooapp.outsourcing.FoodSupplier;
 import com.example.user.fantasyzooapp.outsourcing.RecruitmentAgency;
 import com.example.user.fantasyzooapp.people.Customer;
-import com.example.user.fantasyzooapp.people.Person;
 import com.example.user.fantasyzooapp.people.Staff;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 /**
  * Created by user on 25/09/2017.
@@ -21,7 +19,7 @@ import java.util.ArrayList;
 
 public class Zoo {
 
-//    Random dm;
+    Random dm;
 
     private boolean gatesAreOpen;
     private int customerCapacity;
@@ -47,6 +45,7 @@ public class Zoo {
 //    private ArrayList<Building> beingBuilt;
 
     public Zoo() {
+        dm = new Random();
         gatesAreOpen = false;
         customerCapacity = 20;
         ticketPrice = 10;
@@ -224,14 +223,15 @@ public class Zoo {
         }
     }
 
-    public Animal fromAnimalStorage(int index) {
-        return animalStorage.get(0);
+    public Animal animalFromStorage(int index) {
+        return animalStorage.get(index);
     }
 
     public void transfer(int animal, int structure) {
-        Animal animalStored = fromAnimalStorage(animal);
+        Animal animalStored = animalFromStorage(animal);
         Environment enclosure = (Environment) structure(structure);
         enclosure.takeIn(animalStored);
+        animalStorage.remove(animal);
     }
 
     public void resupplyMeat(int buildingByIndex, int quantity) {
@@ -274,13 +274,7 @@ public class Zoo {
         roaming.remove(index);
         customerCounter--;
     }
-    private void clearZooOfCustomers() {
-        for(Building building: structures) {
-            Staff.evacuate(building);
-            Staff.secureGallery(building);
-            askCustomersToLeave();
-        }
-    }
+
 
     private void askCustomersToLeave() {
         roaming.clear();
@@ -290,6 +284,14 @@ public class Zoo {
         clearZooOfCustomers();
         closeGates();
         customerCounter = 0;
+    }
+
+    private void clearZooOfCustomers() {
+        for(Building building: structures) {
+            Staff.evacuate(building);
+            Staff.secureGallery(building);
+            askCustomersToLeave();
+        }
     }
 
     public void endOfDay() {
@@ -313,5 +315,32 @@ public class Zoo {
                 animal.sleep();
             }
         }
+    }
+
+    public void feedingTime(int buildingByIndex, int staffByIndex) {
+        workAt(staffByIndex, buildingByIndex);
+        Environment enclosure = (Environment) structure(buildingByIndex);
+        enclosure.feedAnimals();
+            for(Animal animal: enclosure.getAnimals()){
+                if((animal.getHappiness() < 50) && (!staffCompetenceTest(enclosure))) {
+                    animalLoose(animal);
+                    enclosure.remove(animal);
+                }
+            }
+    }
+
+    private boolean staffCompetenceTest(Environment environment) {
+        boolean savedTheDay = false;
+        for(Staff worker: environment.getWorkers()){
+            if((dm.nextInt(50) + worker.getSkill()) < 75) {
+                savedTheDay = true;
+            }
+        }
+        return savedTheDay;
+    }
+
+    private void animalLoose(Animal animal) {
+        loose.add(animal);
+
     }
 }

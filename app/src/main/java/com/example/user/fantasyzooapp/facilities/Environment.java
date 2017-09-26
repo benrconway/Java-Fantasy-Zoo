@@ -9,14 +9,17 @@ import com.example.user.fantasyzooapp.facilities.Building;
 import com.example.user.fantasyzooapp.food.Edible;
 import com.example.user.fantasyzooapp.food.Flesh;
 import com.example.user.fantasyzooapp.food.Vegetation;
+import com.example.user.fantasyzooapp.people.Customer;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 /**
  * Created by user on 22/09/2017.
  */
 
 public class Environment extends Building {
+    private Random dm;
     private ArrayList<Flesh> meatLocker;
     private ArrayList<Vegetation> larder;
     private ArrayList<Animal> animals;
@@ -52,6 +55,14 @@ public class Environment extends Building {
 
     public void takeVegFromStocks(Vegetation food){
         larder.add(food);
+    }
+
+    public Animal animal(int animalIndex) {
+        return animals.get(animalIndex);
+    }
+
+    public Customer getCustomer(int index){
+        return getFloorSpace().get(index);
     }
 
     public void feedCarnivore(Carnivore carnivore){
@@ -135,5 +146,34 @@ public class Environment extends Building {
 
     public void addToLarder(Vegetation vegetable) {
         larder.add(vegetable);
+    }
+
+    public void feedAnimals() {
+        if(animal(0) instanceof Carnivore) {
+            for(Animal animal: animals) {
+                Carnivore carnivore = (Carnivore) animal;
+                feedCarnivore(carnivore);
+            }
+        }else {
+            for(Animal animal: animals)
+                if(animal instanceof Herbivore){
+                    Herbivore herbivore = (Herbivore) animal;
+                    feedHerbivore(herbivore);
+                }else { if(animal instanceof Omnivore){
+                    Omnivore omnivore = (Omnivore) animal;
+                    feedOmnivore(omnivore);
+
+                }
+            }
+        }
+    }
+
+    //Customers annoy animals
+    public void annoyTheAnimal(int customerIndex) {
+//        if(dm.nextInt(40)+ getCustomer(customerIndex).getSkill() > 75) {
+            for(Animal animal: animals){
+                animal.adjustHappiness(-10);
+            }
+//        }
     }
 }

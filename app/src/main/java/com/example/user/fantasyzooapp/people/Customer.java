@@ -9,5 +9,4 @@ public class Customer extends Person implements Consumer{
         super(wallet, skill);
     }
 
-
 }
