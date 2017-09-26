@@ -22,6 +22,6 @@ public class GeneralPublicTest {
 
     @Test
     public void hasArrayOfCustomers() {
-        assertEquals(1, riffRaff.getPublic().size());
+        assertEquals(1, riffRaff.getPeople().size());
     }
 }

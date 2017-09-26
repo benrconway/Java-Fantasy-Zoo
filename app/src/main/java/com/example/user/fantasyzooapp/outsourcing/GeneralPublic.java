@@ -4,6 +4,7 @@ import com.example.user.fantasyzooapp.facilities.Zoo;
 import com.example.user.fantasyzooapp.people.Customer;
 
 import java.util.ArrayList;
+import java.util.BitSet;
 
 /**
  * Created by user on 25/09/2017.
@@ -32,4 +33,5 @@ public class GeneralPublic {
             zoo.sellTicket(person);
         }
     }
+
 }

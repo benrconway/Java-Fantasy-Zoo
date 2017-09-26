@@ -1,6 +1,8 @@
 package com.example.user.fantasyzooapp.outsourcing;
 
 import com.example.user.fantasyzooapp.animals.Size;
+import com.example.user.fantasyzooapp.facilities.Building;
+import com.example.user.fantasyzooapp.facilities.Environment;
 
 import java.util.ArrayList;
 

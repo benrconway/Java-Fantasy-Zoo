@@ -1,5 +1,6 @@
 package com.example.user.fantasyzooapp;
 
+import com.example.user.fantasyzooapp.facilities.Environment;
 import com.example.user.fantasyzooapp.facilities.Zoo;
 import com.example.user.fantasyzooapp.outsourcing.Breeder;
 import com.example.user.fantasyzooapp.outsourcing.Construction;
@@ -54,7 +55,7 @@ public class ZooTest {
     public void zooCanBuyFromBreeder() {
         //Buying a Huge Dragon which costs 30,000
         zoo.buyAnimalByIndex(0, breeder);
-        assertEquals(1, zoo.getOutBack().size());
+        assertEquals(1, zoo.getAnimalStorage().size());
         assertEquals(40_000, breeder.getSavings());
         assertEquals(970_000, zoo.getFunds());
     }
@@ -120,7 +121,27 @@ public class ZooTest {
 
     @Test
     public void canTransferAnimalFromOutBackToEnvironment() {
+        zoo.addStructureByIndex(0, contractor);
+        zoo.buyAnimalByIndex(2, breeder);
+        zoo.transfer(zoo.fromAnimalStorage(0), zoo.structure(0));
+    }
 
+    @Test
+    public void canRestockEnclosuresMeatSupplies() {
+        zoo.addStructureByIndex(3, contractor);
+        zoo.restockMeat(10, foodSupplier);
+        zoo.resupplyMeat(zoo.structure(0), 10);
+        Environment environment = (Environment) zoo.structure(0);
+        assertEquals(10, environment.getMeatLocker().size());
+    }
+
+@Test
+    public void canRestockEnclosuresVegSupplies() {
+        zoo.addStructureByIndex(3, contractor);
+        zoo.restockVegetables(10, foodSupplier);
+        zoo.resupplyVegetables(zoo.structure(0), 10);
+        Environment environment = (Environment) zoo.structure(0);
+        assertEquals(10, environment.getLarder().size());
     }
 
 

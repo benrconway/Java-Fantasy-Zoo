@@ -1,10 +1,11 @@
-package com.example.user.fantasyzooapp.outsourcing;
+package com.example.user.fantasyzooapp.facilities;
 
 import com.example.user.fantasyzooapp.animals.Animal;
 import com.example.user.fantasyzooapp.animals.Carnivore;
 import com.example.user.fantasyzooapp.animals.Herbivore;
 import com.example.user.fantasyzooapp.animals.Omnivore;
 import com.example.user.fantasyzooapp.animals.Size;
+import com.example.user.fantasyzooapp.facilities.Building;
 import com.example.user.fantasyzooapp.food.Edible;
 import com.example.user.fantasyzooapp.food.Flesh;
 import com.example.user.fantasyzooapp.food.Vegetation;
@@ -128,4 +129,11 @@ public class Environment extends Building {
         return food;
     }
 
+    public void addToMeatLocker(Flesh meat) {
+        meatLocker.add(meat);
+    }
+
+    public void addToLarder(Vegetation vegetable) {
+        larder.add(vegetable);
+    }
 }

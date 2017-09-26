@@ -4,7 +4,7 @@ import com.example.user.fantasyzooapp.animals.Bunyip;
 import com.example.user.fantasyzooapp.animals.Dragon;
 import com.example.user.fantasyzooapp.animals.Size;
 import com.example.user.fantasyzooapp.animals.Unicorn;
-import com.example.user.fantasyzooapp.outsourcing.Environment;
+import com.example.user.fantasyzooapp.facilities.Environment;
 import com.example.user.fantasyzooapp.food.Cabbage;
 import com.example.user.fantasyzooapp.food.Meat;
 import com.example.user.fantasyzooapp.people.Customer;

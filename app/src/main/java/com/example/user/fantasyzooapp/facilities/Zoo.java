@@ -4,7 +4,6 @@ import com.example.user.fantasyzooapp.animals.Animal;
 import com.example.user.fantasyzooapp.food.Flesh;
 import com.example.user.fantasyzooapp.food.Vegetation;
 import com.example.user.fantasyzooapp.outsourcing.Breeder;
-import com.example.user.fantasyzooapp.outsourcing.Building;
 import com.example.user.fantasyzooapp.outsourcing.Construction;
 import com.example.user.fantasyzooapp.outsourcing.FoodSupplier;
 import com.example.user.fantasyzooapp.outsourcing.RecruitmentAgency;
@@ -27,6 +26,7 @@ public class Zoo {
     private int ticketPrice;
     private int funds;
     private int day;
+    private int dailyTakings;
 //    private int staffCounter;
 //    private int customerCounter;
 
@@ -34,8 +34,9 @@ public class Zoo {
     private ArrayList<Vegetation> vegetableStock;
     private ArrayList<Flesh> meatStock;
     private ArrayList<Animal> loose;
-    private ArrayList<Animal> outBack;
+    private ArrayList<Animal> animalStorage;
     private ArrayList<Building> structures;
+    private ArrayList<Environment> enclosures;
     private ArrayList<Staff> atWork;
 
 //    private ArrayList<Building> beingBuilt;
@@ -46,15 +47,17 @@ public class Zoo {
         ticketPrice = 10;
         funds = 1_000_000;
         day = 0;
+        dailyTakings = 0;
 //        staffCounter = 0;
 //        customerCounter = 0;
         atWork = new ArrayList<>();
-        outBack = new ArrayList<>();
+        animalStorage = new ArrayList<>();
         roaming = new ArrayList<>();
         vegetableStock = new ArrayList<>();
         meatStock = new ArrayList<>();
         loose = new ArrayList<>();
         structures = new ArrayList<>();
+        enclosures = new ArrayList<>();
     }
 
 
@@ -78,8 +81,8 @@ public class Zoo {
         return day;
     }
 
-    public ArrayList<Animal> getOutBack() {
-        return outBack;
+    public ArrayList<Animal> getAnimalStorage() {
+        return animalStorage;
     }
 
     public ArrayList<Customer> getRoaming() {
@@ -118,7 +121,7 @@ public class Zoo {
         Animal animal = breeder.getFromCollection(index);
         breeder.getsPaid(animal.getValue());
         funds -= animal.getValue();
-        outBack.add(animal);
+        animalStorage.add(animal);
     }
 
     public void addStructureByIndex(int index, Construction contractor) {
@@ -154,12 +157,12 @@ public class Zoo {
 
     public void sellTicket(Customer person) {
         person.buyTicket(ticketPrice);
-        funds += ticketPrice;
+        dailyTakings += ticketPrice;
         roaming.add(person);
     }
 
     public Building structure(int index) {
-        return structures.get(index);
+         return structures.get(index);
     }
 
     public Staff staff(int index) {
@@ -184,5 +187,46 @@ public class Zoo {
         for(Building facility: structures) {
             facility.openDoors();
         }
+    }
+
+    public Animal fromAnimalStorage(int index) {
+        return animalStorage.get(0);
+    }
+
+    public void transfer(Animal animal, Building structure) {
+        Environment enclosure = (Environment) structure;
+        enclosure.takeIn(animal);
+    }
+
+    public void resupplyMeat(Building structure, int quantity) {
+        for( int index = 0; index < quantity; index++) {
+            transferMeat(structure);
+        }
+
+    }
+    private void transferMeat(Building structure) {
+        Environment enclosure = (Environment) structure;
+        Flesh meat = meatStock.remove(0);
+        enclosure.addToMeatLocker(meat);
+    }
+
+    public void resupplyVegetables(Building structure, int quantity) {
+        for( int index = 0; index < quantity; index++) {
+            transferVeg(structure);
+        }
+
+    }
+    private void transferVeg(Building structure) {
+        Environment enclosure = (Environment) structure;
+        Vegetation vegetable = vegetableStock.remove(0);
+        enclosure.addToLarder(vegetable);
+    }
+
+    public void closeUpZoo() {
+
+    }
+
+    private void endOfDay() {
+
     }
 }
