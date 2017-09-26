@@ -22,8 +22,12 @@ public class FoodSupplier {
         setUpStock();
     }
 
-    public ArrayList<Flesh> getMeatStock() {
+    public ArrayList<Flesh> getFleshStock() {
         return fleshStock;
+    }
+
+    public ArrayList<Vegetation> getVegetableStock() {
+        return vegetableStock;
     }
 
     public void setUpStock() {

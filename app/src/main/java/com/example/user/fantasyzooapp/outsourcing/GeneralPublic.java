@@ -10,7 +10,6 @@ import java.util.ArrayList;
  */
 
 public class GeneralPublic {
-    private Customer customer;
     private ArrayList<Customer> people;
 
     public GeneralPublic() {
@@ -19,8 +18,12 @@ public class GeneralPublic {
     }
 
     public void setUpAwaitingPublic() {
-        customer = new Customer(500, 60);
+        Customer customer = new Customer(500, 60);
         people.add(customer);
+    }
+
+    public ArrayList<Customer> getPeople() {
+        return people;
     }
 
     public void enter(Zoo zoo) {

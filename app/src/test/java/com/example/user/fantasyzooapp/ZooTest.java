@@ -118,5 +118,10 @@ public class ZooTest {
         assertEquals(2, zoo.structure(0).getFloorSpace().size());
     }
 
+    @Test
+    public void canTransferAnimalFromOutBackToEnvironment() {
+
+    }
+
 
 }
