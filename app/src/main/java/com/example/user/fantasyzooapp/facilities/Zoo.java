@@ -292,8 +292,6 @@ public class Zoo {
         customerCounter = 0;
     }
 
-
-
     private void endOfDay() {
         balanceAccounts();
         turnOutTheLights();

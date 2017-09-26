@@ -16,6 +16,7 @@ public abstract class Building {
     private int viewingCapacity;
     private int staffCapacity;
     private boolean doorsOpen;
+    private int daysTillBuilt;
     private ArrayList<Customer> floorSpace;
     private ArrayList<Staff> workers;
 

@@ -106,7 +106,7 @@ public class EnvironmentTest {
         largeEnvironment.enterBuilding(richCustomer);
         largeEnvironment.enterBuilding(poorCustomer);
         largeEnvironment.leaveBuilding(poorCustomer);
-        assertEquals(2, largeEnvironment.getFloorSpace().size());
+        assertEquals(1, largeEnvironment.getFloorSpace().size());
         assertEquals(richCustomer, largeEnvironment.getFloorSpace().get(0));
     }
 

@@ -40,7 +40,7 @@ public class ZooTest {
     @Test
     public void canRetrieveDetails() {
         assertEquals(true, zoo.areTheGatesOpen());
-        assertEquals(100, zoo.getCustomerCapacity());
+        assertEquals(20, zoo.getCustomerCapacity());
         assertEquals(10, zoo.getTicketPrice());
         assertEquals(1_000_000, zoo.getFunds());
         assertEquals(0, zoo.getDay());
@@ -176,6 +176,10 @@ public class ZooTest {
         assertEquals(2, zoo.getCustomerCounter());
     }
 
+    @Test
+    public void runtheZooForADay(){
+
+    }
 
 
 
