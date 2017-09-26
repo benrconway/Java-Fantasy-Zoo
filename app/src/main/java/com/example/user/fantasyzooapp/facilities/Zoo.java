@@ -1,5 +1,7 @@
 package com.example.user.fantasyzooapp.facilities;
 
+import android.os.Build;
+
 import com.example.user.fantasyzooapp.animals.Animal;
 import com.example.user.fantasyzooapp.food.Flesh;
 import com.example.user.fantasyzooapp.food.Vegetation;
@@ -27,40 +29,45 @@ public class Zoo {
     private int funds;
     private int day;
     private int dailyTakings;
-//    private int staffCounter;
-//    private int customerCounter;
+    private int customerCounter;
+    //private int staffCounter;
 
+    private ArrayList<Staff> atWork;
     private ArrayList<Customer> roaming;
+
     private ArrayList<Vegetation> vegetableStock;
     private ArrayList<Flesh> meatStock;
+
     private ArrayList<Animal> loose;
     private ArrayList<Animal> animalStorage;
+
     private ArrayList<Building> structures;
-    private ArrayList<Environment> enclosures;
-    private ArrayList<Staff> atWork;
+
 
 //    private ArrayList<Building> beingBuilt;
 
     public Zoo() {
         gatesAreOpen = false;
-        customerCapacity = 100;
+        customerCapacity = 20;
         ticketPrice = 10;
         funds = 1_000_000;
         day = 0;
         dailyTakings = 0;
-//        staffCounter = 0;
-//        customerCounter = 0;
+        customerCounter = 0;
+
         atWork = new ArrayList<>();
-        animalStorage = new ArrayList<>();
         roaming = new ArrayList<>();
+
+        animalStorage = new ArrayList<>();
+        loose = new ArrayList<>();
+
         vegetableStock = new ArrayList<>();
         meatStock = new ArrayList<>();
-        loose = new ArrayList<>();
+
         structures = new ArrayList<>();
-        enclosures = new ArrayList<>();
     }
 
-
+//Getters
     public boolean areTheGatesOpen() {
         return gatesAreOpen;
     }
@@ -68,6 +75,8 @@ public class Zoo {
     public int getCustomerCapacity() {
         return customerCapacity;
     }
+
+    public int getCustomerCounter() { return customerCounter; }
 
     public int getTicketPrice() {
         return ticketPrice;
@@ -113,6 +122,8 @@ public class Zoo {
         return dailyTakings;
     }
 
+    //Basic Operations
+
     public void openGates() {
         gatesAreOpen = true;
     }
@@ -121,6 +132,16 @@ public class Zoo {
         gatesAreOpen = false;
     }
 
+    private int updateCapacity() {
+        int runningCapacity = 20;
+        for(Building building: structures) {
+            runningCapacity += building.getViewingCapacity();
+        }
+
+        return runningCapacity;
+    }
+
+    //Buying from Outsourced elements
     public void buyAnimalByIndex(int index, Breeder breeder) {
         Animal animal = breeder.getFromCollection(index);
         breeder.getsPaid(animal.getValue());
@@ -141,6 +162,7 @@ public class Zoo {
         funds -= staff.getWallet();
     }
 
+    //Perhaps unnecessary, but restocks individual food items
     public void restockVegetables(int quantity, FoodSupplier foodSupplier) {
         Vegetation food = null;
         for(int index = 0; index < quantity; index++) {
@@ -158,11 +180,18 @@ public class Zoo {
         }
         funds -= (quantity * food.getValue());
     }
-
+    //Customer entering the Zoo
     public void sellTicket(Customer person) {
-        person.buyTicket(ticketPrice);
-        dailyTakings += ticketPrice;
-        roaming.add(person);
+        if (stillHaveTickets()) {
+            person.buyTicket(ticketPrice);
+            dailyTakings += ticketPrice;
+            roaming.add(person);
+            customerCounter++;
+        }
+    }
+
+    private boolean stillHaveTickets() {
+        return customerCounter < customerCapacity;
     }
 
     public Building structure(int index) {
@@ -173,6 +202,11 @@ public class Zoo {
         return atWork.get(index);
     }
 
+    public Customer customer(int index) {
+        return roaming.get(index);
+    }
+
+
     public void workAt(Staff staff, Building structure) {
         structure.goToStation(staff);
         atWork.remove(staff);
@@ -181,10 +215,6 @@ public class Zoo {
     public void enter(Customer person, Building structure) {
         structure.enterBuilding(person);
         roaming.remove(person);
-    }
-
-    public Customer customer(int index) {
-        return roaming.get(index);
     }
 
 
@@ -240,17 +270,48 @@ public class Zoo {
         structure(building).leaveStation(staff);
     }
 
+    public void customerLeaves(int index) {
+        roaming.remove(index);
+        customerCounter--;
+    }
+    public void clearZooOfCustomers() {
+        for(Building building: structures) {
+            Staff.evacuate(building);
+            Staff.secureGallery(building);
+            askCustomersToLeave();
+        }
+    }
+
+    private void askCustomersToLeave() {
+        roaming.clear();
+    }
+
+    public void closeUpZoo() {
+        clearZooOfCustomers();
+        closeGates();
+        customerCounter = 0;
+    }
 
 
-//    public void closeUpZoo() {
-//        Zoo.clearZooOfCustomers();
-//        Staff.secureBuildings();
-//        closeGates();
-//    }
-//
-//    private void endOfDay() {
-//        Zoo.balanceAccounts();
-//        Zoo.turnOutTheLights();
-//        day++;
-//    }
+
+    private void endOfDay() {
+        balanceAccounts();
+        turnOutTheLights();
+        day++;
+        updateCapacity();
+
+    }
+
+    private void balanceAccounts() {
+        funds += dailyTakings;
+    }
+
+    private void turnOutTheLights() {
+        for(Building building: structures) {
+            Environment environment = (Environment) building;
+            for (Animal animal: environment.getAnimals()){
+                animal.sleep();
+            }
+        }
+    }
 }

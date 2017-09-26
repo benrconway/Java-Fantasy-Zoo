@@ -35,7 +35,10 @@ public class GeneralPublic {
         }
     }
 
-    public void leaveBuilding(Building building) {
+    public static void leave(int index, Zoo zoo) {
+        if(zoo.areTheGatesOpen()) {
+            zoo.customerLeaves(index);
+        }
 
     }
 

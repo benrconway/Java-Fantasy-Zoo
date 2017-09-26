@@ -1,6 +1,7 @@
 package com.example.user.fantasyzooapp.people;
 
 import com.example.user.fantasyzooapp.facilities.Building;
+import com.example.user.fantasyzooapp.facilities.Zoo;
 
 /**
  * Created by user on 22/09/2017.
@@ -26,4 +27,6 @@ public class Staff extends Person implements Keeper{
     public static void secureGallery(Building building) {
         building.secureFloorSpace();
     }
+
+
 }

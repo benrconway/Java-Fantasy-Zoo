@@ -91,6 +91,7 @@ public class ZooTest {
         assertEquals(1, zoo.getRoaming().size());
         assertEquals(10, zoo.getDailyTakings());
         assertEquals(490, zoo.getRoaming().get(0).getWallet());
+        assertEquals(1, zoo.getCustomerCounter());
     }
 
     @Test
@@ -164,6 +165,18 @@ public class ZooTest {
         assertEquals(0, zoo.structure(0).getFloorSpace().size());
         assertEquals(1, zoo.getRoaming().size());
     }
+
+    @Test
+    public void zooUpdatesAsPeopleLeave(){
+        generalPublic.enter(zoo);
+        generalPublic.enter(zoo);
+        generalPublic.enter(zoo);
+        generalPublic.leave(0, zoo);
+        assertEquals(2, zoo.getRoaming().size());
+        assertEquals(2, zoo.getCustomerCounter());
+    }
+
+
 
 
 }

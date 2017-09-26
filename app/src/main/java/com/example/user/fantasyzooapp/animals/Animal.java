@@ -29,8 +29,8 @@ public abstract class Animal {
         return value;
     }
 
-    abstract void sleep();
+    public abstract void sleep();
 
-    abstract boolean isHungry();
+    public abstract boolean isHungry();
 
 }
