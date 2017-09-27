@@ -123,6 +123,13 @@ public class Zoo {
 
     //Basic Operations
 
+    public void allYourBase() {
+        funds = 10_000_000;
+    }
+    public void bankrupt() {
+        funds = 0;
+    }
+
     public void openGates() {
         gatesAreOpen = true;
     }
@@ -138,15 +145,15 @@ public class Zoo {
     }
 
     //Buying from Outsourced elements
-    public void buyAnimalByIndex(int index, Breeder breeder) {
-        Animal animal = breeder.getFromCollection(index);
+    public void buyAnimalByIndex(int animalIndex, Breeder breeder) {
+        Animal animal = breeder.getFromCollection(animalIndex);
         breeder.getsPaid(animal.getValue());
         funds -= animal.getValue();
         animalStorage.add(animal);
     }
 
-    public void addStructureByIndex(int index, Construction contractor) {
-        Building building = contractor.buildByIndex(index);
+    public void addStructureByIndex(int buildingIndex, Construction contractor) {
+        Building building = contractor.buildByIndex(buildingIndex);
         funds -= building.getValue();
         structures.add(building);
 
@@ -202,27 +209,42 @@ public class Zoo {
         return roaming.get(index);
     }
 
-
+//Staff moving around
     public void workAt(int staffNumber, int buildingByIndex) {
 //        Building structure = structure(buildingByIndex);
         structure(buildingByIndex).goToStation(staff(staffNumber));
         atWork.remove(staffNumber);
     }
-
+//Customers moving around
     public void enter(Customer person, int buildingByIndex) {
         //Building structure = structure(buildingByIndex);
         structure(buildingByIndex).enterBuilding(person);
         roaming.remove(person);
     }
 
-
-    public void openForBusiness() {
-        openGates();
-        for(Building facility: structures) {
-            facility.openDoors();
-        }
+    public void customerExitsBuilding(int customerIndex, int building) {
+        Customer customer = structure(building).getCustomer(customerIndex);
+        roaming.add(customer);
+        structure(building).leaveBuilding(customer);
     }
 
+    public void staffLeaveStation(int staffNumber, int building) {
+        Staff staff = structure(building).getStaff(staffNumber);
+        atWork.add(staff);
+        structure(building).leaveStation(staff);
+    }
+
+    public void customerLeaves(int index) {
+        roaming.remove(index);
+        customerCounter--;
+    }
+
+    private void askCustomersToLeave() {
+        roaming.clear();
+    }
+
+
+//Moving animals around
     public Animal animalFromStorage(int index) {
         return animalStorage.get(index);
     }
@@ -234,6 +256,7 @@ public class Zoo {
         animalStorage.remove(animal);
     }
 
+//Getting in food
     public void resupplyMeat(int buildingByIndex, int quantity) {
         Environment structure = (Environment) structure(buildingByIndex);
         for( int index = 0; index < quantity; index++) {
@@ -258,26 +281,12 @@ public class Zoo {
         structure.addToLarder(vegetable);
     }
 
-    public void customerExitsBuilding(int customerIndex, int building) {
-        Customer customer = structure(building).getCustomer(customerIndex);
-        roaming.add(customer);
-        structure(building).leaveBuilding(customer);
-    }
-
-    public void staffLeaveStation(int staffNumber, int building) {
-        Staff staff = structure(building).getStaff(staffNumber);
-        atWork.add(staff);
-        structure(building).leaveStation(staff);
-    }
-
-    public void customerLeaves(int index) {
-        roaming.remove(index);
-        customerCounter--;
-    }
-
-
-    private void askCustomersToLeave() {
-        roaming.clear();
+//Opening and Closing business
+    public void openForBusiness() {
+        openGates();
+        for(Building facility: structures) {
+            facility.openDoors();
+        }
     }
 
     public void closeUpZoo() {
@@ -286,19 +295,19 @@ public class Zoo {
         customerCounter = 0;
     }
 
+    public void endOfDay() {
+        balanceAccounts();
+        turnOutTheLights();
+        day++;
+        updateCapacity();
+    }
+
     private void clearZooOfCustomers() {
         for(Building building: structures) {
             Staff.evacuate(building);
             Staff.secureGallery(building);
             askCustomersToLeave();
         }
-    }
-
-    public void endOfDay() {
-        balanceAccounts();
-        turnOutTheLights();
-        day++;
-        updateCapacity();
     }
 
     private void balanceAccounts() {
@@ -341,6 +350,5 @@ public class Zoo {
 
     private void animalLoose(Animal animal) {
         loose.add(animal);
-
     }
 }
