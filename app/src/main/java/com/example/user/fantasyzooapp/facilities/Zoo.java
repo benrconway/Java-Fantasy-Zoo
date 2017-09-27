@@ -8,6 +8,7 @@ import com.example.user.fantasyzooapp.outsourcing.Construction;
 import com.example.user.fantasyzooapp.outsourcing.FoodSupplier;
 import com.example.user.fantasyzooapp.outsourcing.RecruitmentAgency;
 import com.example.user.fantasyzooapp.people.Customer;
+import com.example.user.fantasyzooapp.people.Keeper;
 import com.example.user.fantasyzooapp.people.Staff;
 
 import java.util.ArrayList;
@@ -304,8 +305,8 @@ public class Zoo {
 
     private void clearZooOfCustomers() {
         for(Building building: structures) {
-            Staff.evacuate(building);
-            Staff.secureGallery(building);
+            Keeper.evacuate(building);
+            Keeper.secureGallery(building);
             askCustomersToLeave();
         }
     }

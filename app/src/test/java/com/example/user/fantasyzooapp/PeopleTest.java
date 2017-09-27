@@ -1,6 +1,7 @@
 package com.example.user.fantasyzooapp;
 
 import com.example.user.fantasyzooapp.people.Customer;
+import com.example.user.fantasyzooapp.people.Keeper;
 import com.example.user.fantasyzooapp.people.Staff;
 
 import org.junit.Before;
@@ -14,12 +15,12 @@ import static org.junit.Assert.assertEquals;
 
 public class PeopleTest {
 
-    Staff staff;
+    Keeper staff;
     Customer customer;
 
     @Before
     public void before(){
-        staff = new Staff(500, 100, 60);
+        staff = new Keeper(500, 100, 60);
         customer = new Customer(3000, 40);
     }
 

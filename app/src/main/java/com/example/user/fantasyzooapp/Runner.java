@@ -6,6 +6,7 @@ import com.example.user.fantasyzooapp.food.*;
 import com.example.user.fantasyzooapp.outsourcing.*;
 import com.example.user.fantasyzooapp.people.*;
 
+import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
@@ -187,20 +188,21 @@ public class Runner {
 
         for (Animal animal: animalsPresent) {
             int randomness = dm.nextInt(10);
-            String first = String.format("%s\'s eyes glow red as the blood moon rises.. \n", animal.getName());
+            String first = String.format("%s\'s eyes glow red.\n", animal.getName());
             result += first;
             if(randomness > 4 ) {
                 String second = String.format("%s has been consumed by rage and breaks free!\n", animal.getName());
                 result += second;
             }else {
                 String second = String.format("%s shudders and shakes, the glow of the blood moon " +
-                        "waning in the night.\n", animal.getName());
+                        "waning from its eyes.\n", animal.getName());
                 result += second;
             }
         }
+        System.out.println("The Blood Moon rises...");
         System.out.println(result);
-        String endOfDays = "\nYou wander through the shattered ashes of your zoo after the Blood Moon, " +
-                "bodies strewn all around your zoo.\nMayhaps we should have listened to Dr Malcolm.";
+        String endOfDays = "\nYou wander through the shattered ashes of your zoo after the Blood Moon." +
+                "\nMayhaps we should have listened to Dr Malcolm.";
         System.out.println(endOfDays);
         System.out.println("");
         System.out.println("");

@@ -1,5 +1,6 @@
 package com.example.user.fantasyzooapp.outsourcing;
 
+import com.example.user.fantasyzooapp.people.Keeper;
 import com.example.user.fantasyzooapp.people.Staff;
 
 import java.util.ArrayList;
@@ -21,7 +22,7 @@ public class RecruitmentAgency {
     }
 
     public void setUpStaffApplications() {
-        Staff staff = new Staff(300, 50, 65);
+        Keeper staff = new Keeper(300, 50, 65);
         awaitingHire.add(staff);
     }
 

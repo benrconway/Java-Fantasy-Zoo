@@ -8,6 +8,7 @@ import com.example.user.fantasyzooapp.facilities.Environment;
 import com.example.user.fantasyzooapp.food.Cabbage;
 import com.example.user.fantasyzooapp.food.Meat;
 import com.example.user.fantasyzooapp.people.Customer;
+import com.example.user.fantasyzooapp.people.Keeper;
 import com.example.user.fantasyzooapp.people.Staff;
 
 import org.junit.Before;
@@ -24,8 +25,8 @@ public class EnvironmentTest {
     Environment mediumEnvironment;
     Environment smallEnvironment;
 //    Environment environment4;
-    Staff staff1;
-    Staff staff2;
+    Keeper staff1;
+    Keeper staff2;
     Customer richCustomer;
     Customer poorCustomer;
     Dragon largeDragon;
@@ -40,8 +41,8 @@ public class EnvironmentTest {
     public void before(){
         meat = new Meat();
         cabbage = new Cabbage();
-        staff1 = new Staff(500, 100, 70);
-        staff2 = new Staff(1000, 150, 80);
+        staff1 = new Keeper(500, 100, 70);
+        staff2 = new Keeper(1000, 150, 80);
         richCustomer = new Customer(10000, 40);
         poorCustomer = new Customer(50, 60);
         largeDragon = new Dragon("Talia", Size.LARGE, 3000);
@@ -121,14 +122,14 @@ public class EnvironmentTest {
     public void staffCanEvacuateBuilding() {
         largeEnvironment.enterBuilding(richCustomer);
         largeEnvironment.enterBuilding(poorCustomer);
-        Staff.evacuate(largeEnvironment);
+        Keeper.evacuate(largeEnvironment);
         assertEquals(0, largeEnvironment.getFloorSpace().size());
     }
 
     @Test
     public void staffCanSecureBuilding() {
         largeEnvironment.goToStation(staff2);
-        Staff.secureGallery(largeEnvironment);
+        Keeper.secureGallery(largeEnvironment);
         assertEquals(0, largeEnvironment.getFloorSpace().size());
         assertEquals(false , largeEnvironment.checkIfOpen());
     }
